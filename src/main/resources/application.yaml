@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:mysql://8387448b-ff4e-41ea-874f-130b33bfd64d.external.kr1.mysql.rds.nhncloudservice.com:13306/spotlight_konex
+    username: team2
+    password: team2
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false #osiv
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show-sql: true
+        format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy:
+        ant_path_matcher
