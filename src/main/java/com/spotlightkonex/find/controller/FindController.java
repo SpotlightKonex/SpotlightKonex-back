@@ -29,7 +29,7 @@ public class FindController {
      * @return 테마에 해당하는 종목을 가진 기업 리스트
      * */
     @GetMapping("/theme/{theme}")
-    public ResponseEntity<?> searchEnterpriseByTheme(@RequestParam Long theme){
+    public ResponseEntity<?> searchEnterpriseByTheme(@PathVariable Long theme){
         return findService.getEnterpriseByIndutyName(theme);
     }
 
