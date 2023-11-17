@@ -33,4 +33,26 @@ public class BoardController {
     public ResponseEntity<?> searchBoards(@PathVariable String corp_code) {
         return boardService.searchBoards(corp_code);
     }
+
+    /**
+     * 기업 게시물 수정
+     * @param notice_seq
+     * @param requestDto
+     * @return ResponseEntity
+     */
+    @PutMapping("/boards/{notice_seq}")
+    public ResponseEntity<?> updateBoard(@PathVariable Long notice_seq, @RequestBody BoardRequestDto requestDto) {
+        return boardService.updateBoard(notice_seq, requestDto);
+    }
+
+    /**
+     * 기업 게시물 삭제
+     * @param notice_seq
+     * @return ResponseEntity
+     */
+    @DeleteMapping("/boards/{notice_seq}")
+    public ResponseEntity<?> deleteBoard(@PathVariable Long notice_seq) {
+        return boardService.deleteBoard(notice_seq);
+    }
+
 }
