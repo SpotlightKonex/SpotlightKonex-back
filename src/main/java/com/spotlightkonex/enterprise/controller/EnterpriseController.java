@@ -1,6 +1,6 @@
-package com.spotlightkonex.Enterprise.controller;
+package com.spotlightkonex.enterprise.controller;
 
-import com.spotlightkonex.Enterprise.service.EnterpriseService;
+import com.spotlightkonex.enterprise.service.EnterpriseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

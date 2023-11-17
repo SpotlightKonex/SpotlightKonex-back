@@ -1,4 +1,4 @@
-package com.spotlightkonex.Enterprise.domain;
+package com.spotlightkonex.enterprise.domain;
 
 import com.spotlightkonex.find.domain.entity.KonexStock;
 import lombok.AllArgsConstructor;

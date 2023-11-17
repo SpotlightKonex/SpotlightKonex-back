@@ -1,4 +1,4 @@
-package com.spotlightkonex.Enterprise.service;
+package com.spotlightkonex.enterprise.service;
 
 import org.springframework.http.ResponseEntity;
 

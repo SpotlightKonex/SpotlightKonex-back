@@ -1,7 +1,7 @@
-package com.spotlightkonex.Enterprise.service;
+package com.spotlightkonex.enterprise.service;
 
-import com.spotlightkonex.Enterprise.controller.dto.EnterpriseDto;
-import com.spotlightkonex.Enterprise.repository.EnterpriseRepository;
+import com.spotlightkonex.enterprise.controller.dto.EnterpriseDto;
+import com.spotlightkonex.enterprise.repository.EnterpriseRepository;
 import com.spotlightkonex.dto.ResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

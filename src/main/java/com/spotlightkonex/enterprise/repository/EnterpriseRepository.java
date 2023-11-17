@@ -1,7 +1,7 @@
-package com.spotlightkonex.Enterprise.repository;
+package com.spotlightkonex.enterprise.repository;
 
-import com.spotlightkonex.Enterprise.controller.dto.EnterpriseDto;
-import com.spotlightkonex.Enterprise.domain.KonexDetail;
+import com.spotlightkonex.enterprise.controller.dto.EnterpriseDto;
+import com.spotlightkonex.enterprise.domain.KonexDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

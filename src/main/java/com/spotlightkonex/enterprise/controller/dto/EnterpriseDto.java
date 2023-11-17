@@ -1,4 +1,4 @@
-package com.spotlightkonex.Enterprise.controller.dto;
+package com.spotlightkonex.enterprise.controller.dto;
 
 public interface EnterpriseDto {
     String getCorpCode();
