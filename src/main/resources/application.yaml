@@ -17,3 +17,7 @@ spring:
     pathmatch:
       matching-strategy:
         ant_path_matcher
+
+naver:
+  clientId: ${NAVER_CLIENT_ID}
+  clientSecret: ${NAVER_CLIENT_SECRET}
