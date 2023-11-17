@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import com.spotlightkonex.board.domain.dto.BoardRequestDto;
 import com.spotlightkonex.board.domain.entity.Board;
 import com.spotlightkonex.board.respository.BoardRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
