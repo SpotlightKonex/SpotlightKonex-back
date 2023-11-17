@@ -1,4 +1,4 @@
-package com.spotlightkonex.enterprise.domain;
+package com.spotlightkonex.enterprise.domain.entity;
 
 import com.spotlightkonex.find.domain.entity.KonexStock;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class KonexDetail {
     private Long prevPrice; //전일종가
 
     @Column(name="trading_volume")
-    private String tradingㅍolume; //거래량
+    private String tradingVolume; //거래량
 
     @Column(name="transaction_amount")
     private Long transactionAmount; //거래대금
