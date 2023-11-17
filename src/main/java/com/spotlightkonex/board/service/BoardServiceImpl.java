@@ -85,12 +85,17 @@ public class BoardServiceImpl implements BoardService {
             }
             String corpCode = requestDto.getCorp_code(); //requestDto에 있는 corp_code의 값을 cropCode에 담기
             KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode); //KonexStock 표 전체 내용(해당기업)
-            board = Board.builder()
-                    .title(requestDto.getTitle())
-                    .context(requestDto.getContext())
-                    .konexStock(konexStock)
-                    .build();
+
+            board.setTitle(requestDto.getTitle());
+            board.setContext(requestDto.getContext());
+            board.setKonexStock(konexStock);
             boardRepository.save(board);
+//            Board newBoard = Board.builder()
+//                    .title(requestDto.getTitle())
+//                    .context(requestDto.getContext())
+//                    .konexStock(konexStock)
+//                    .build();
+//            boardRepository.save(newBoard);
 
             return new ResponseEntity<>("게시물 수정 성공", HttpStatus.OK);
         } catch (Exception e) {
