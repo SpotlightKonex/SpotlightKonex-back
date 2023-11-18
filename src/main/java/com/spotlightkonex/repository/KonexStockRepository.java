@@ -12,7 +12,7 @@ public interface KonexStockRepository extends JpaRepository<KonexStock, Long> {
     /**
      * 키워드가 들어간 종목 코드에 해당하는 기업 조회
      * */
-    List<KonexStock> findAllBy가StockCodeContaining(String keyword);
+    List<KonexStock> findAllByStockCodeContaining(String keyword);
 
     /**
      * 키워드가 들어간 기업명에 해당하는 기업 조회
