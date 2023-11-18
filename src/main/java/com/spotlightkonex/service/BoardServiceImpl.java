@@ -26,11 +26,8 @@ public class BoardServiceImpl implements BoardService {
     public ResponseEntity<?> createBoard(BoardRequestDto requestDto) {
         try {
             String corpCode = requestDto.getCorp_code(); //requestDto에 있는 corp_code의 값을 cropCode에 담기
-            KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode); //KonexStock 표 전체 내용(해당기업)
-            if (konexStock == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("잘못된 기업 코드 입니다" + corpCode);// 404(Not Found)
-            }
+            KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode)
+                    .orElseThrow(() -> new NullPointerException("잘못된 기업 코드입니다.")); //KonexStock 표 전체 내용(해당기업)
             Board board = Board.builder()
                     .title(requestDto.getTitle())
                     .context(requestDto.getContext())
@@ -84,7 +81,8 @@ public class BoardServiceImpl implements BoardService {
                         .body("해당 번호의 게시글이 존재하지 않습니다.");// 404(Not Found)
             }
             String corpCode = requestDto.getCorp_code(); //requestDto에 있는 corp_code의 값을 cropCode에 담기
-            KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode); //KonexStock 표 전체 내용(해당기업)
+            KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode)
+                    .orElseThrow(() -> new NullPointerException("해당하는 기업이 없습니다.")); //KonexStock 표 전체 내용(해당기업)
 
             board.setTitle(requestDto.getTitle());
             board.setContext(requestDto.getContext());
