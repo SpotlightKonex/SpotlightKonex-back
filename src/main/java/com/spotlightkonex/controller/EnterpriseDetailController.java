@@ -23,9 +23,11 @@ public class EnterpriseDetailController {
     }
 
     /**
-     * 기업 댓글 등록
+     * 기업 댓글 작성
+     * @param talkRequestDTO 작성한 댓글 정보 및 작성자
+     * @return 완료 여부
      * */
-    @PostMapping("talk")
+    @PostMapping("/talk")
     public ResponseEntity<?> writeTalkByCorpCode(@RequestBody TalkRequestDTO talkRequestDTO){
         return talkService.writeCompanyTalkByCorpCode(talkRequestDTO);
     }
