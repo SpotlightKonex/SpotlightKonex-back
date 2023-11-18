@@ -1,6 +1,7 @@
 package com.spotlightkonex.controller;
 
 import com.spotlightkonex.domain.dto.TalkRequestDTO;
+import com.spotlightkonex.service.EnterpriseDetailService;
 import com.spotlightkonex.service.TalkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/enterprise")
 public class EnterpriseDetailController {
     private final TalkService talkService;
+    private final EnterpriseDetailService detailService;
 
     /**
      * 최신순 기업 댓글 조회
@@ -30,5 +32,15 @@ public class EnterpriseDetailController {
     @PostMapping("/talk")
     public ResponseEntity<?> writeTalkByCorpCode(@RequestBody TalkRequestDTO talkRequestDTO){
         return talkService.writeCompanyTalkByCorpCode(talkRequestDTO);
+    }
+
+    /**
+     * 기업 상세 조회
+     * @param corpCode 조회할 기업 고유코드
+     * @return 기업 상세 정보
+     * */
+    @GetMapping("/{corpCode}")
+    public ResponseEntity<?> getCompanyDetail(@PathVariable String corpCode){
+        return detailService.getCompanyDetailByCorpCode(corpCode);
     }
 }
