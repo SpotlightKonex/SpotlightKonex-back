@@ -1,4 +1,4 @@
-package com.spotlightkonex.domain.entity;
+package com.spotlightkonex.domain;
 
 public enum cropName {
     NUM1 { //금속 및 화학 제조업

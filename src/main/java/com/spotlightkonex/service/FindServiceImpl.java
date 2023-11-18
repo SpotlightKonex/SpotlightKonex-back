@@ -3,7 +3,7 @@ package com.spotlightkonex.service;
 import com.spotlightkonex.domain.dto.KonexStockDTO;
 import com.spotlightkonex.domain.dto.ResponseDTO;
 import com.spotlightkonex.domain.entity.KonexStock;
-import com.spotlightkonex.domain.entity.cropName;
+import com.spotlightkonex.domain.cropName;
 import com.spotlightkonex.repository.KonexStockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
