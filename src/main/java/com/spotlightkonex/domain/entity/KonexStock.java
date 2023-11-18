@@ -29,8 +29,7 @@ public class KonexStock {
 
     private String address; //주소
 
-    @Column(name="home_url")
-    private String homeUrl; //홈페이지
+    private String url; //홈페이지
 
     @Column(name="induty_code", nullable = false)
     private String indutyCode; //업종코드
