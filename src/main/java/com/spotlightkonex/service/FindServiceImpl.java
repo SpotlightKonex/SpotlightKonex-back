@@ -56,6 +56,8 @@ public class FindServiceImpl implements FindService{
                     );
                 }
             }
+            if(result.isEmpty())
+                return ResponseEntity.noContent().build();
 
             return ResponseEntity.ok().body(result);
         } catch (Exception e){
@@ -98,7 +100,7 @@ public class FindServiceImpl implements FindService{
             }
 
             if(enterprises == null)
-                throw new RuntimeException("검색할 테마가 없습니다.");
+                return ResponseEntity.notFound().build();
 
             List<KonexStockDTO> result = new ArrayList<>(); //결과로 전달할 리스트
             for(String indutyName : enterprises){
@@ -116,7 +118,7 @@ public class FindServiceImpl implements FindService{
                 }
             }
             if(result.isEmpty())
-                throw new NullPointerException("테마별 기업 조회 결과가 없습니다.");
+                return ResponseEntity.noContent().build();
 
             return ResponseEntity.ok().body(result);
         } catch (Exception e){
