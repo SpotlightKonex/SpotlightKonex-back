@@ -39,10 +39,10 @@ public class KonexStock {
     private String indutyName; //업종명
 
     @Column(name="establish_date")
-    private LocalDateTime establishDate; //설립일
+    private String establishDate; //설립일
 
     @Column(name="public_date")
-    private LocalDateTime publicDate; //상장일
+    private String publicDate; //상장일
 
     private Long capital; //자본금
 
