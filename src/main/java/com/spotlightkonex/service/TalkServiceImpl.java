@@ -25,16 +25,23 @@ public class TalkServiceImpl implements TalkService{
     /**
      * 최신순 기업 댓글 조회
      * @param corpCode 기업 고유 코드
+     * @param status 기업 댓글 모아보기 여부 - ture: 모아보기, false: 섞어보기
      * @return 해당 기업 댓글 리스트
      * */
     @Override
-    public ResponseEntity<?> getCompanyTalkByCorpCode(String corpCode) {
+    public ResponseEntity<?> getCompanyTalkByCorpCode(String corpCode, boolean status) {
         try {
             KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode)
                     .orElseThrow(() -> new NullPointerException("잘못된 기업코드입니다."));
 
-            List<CompanyTalk> companyTalkList = companyTalkRepository.findAllByKonexStockCorpCodeOrderByCreatedAtDesc(konexStock.getCorpCode())
-                    .orElseThrow(() -> new NullPointerException("기업 채팅 내역이 없습니다."));
+            List<CompanyTalk> companyTalkList;
+            if(status){ //모아보기일 때
+                companyTalkList = companyTalkRepository.findAllByKonexStockCorpCodeAndWriterTypeOrderByCreatedAt(konexStock.getCorpCode(), 1)
+                        .orElseThrow(() -> new NullPointerException("기업 채팅 내역이 없습니다."));
+            } else{ //섞어보기
+                companyTalkList = companyTalkRepository.findAllByKonexStockCorpCodeOrderByCreatedAtDesc(konexStock.getCorpCode())
+                        .orElseThrow(() -> new NullPointerException("기업 채팅 내역이 없습니다."));
+            }
 
             List<TalkResponseDTO> responseDTOList  = new ArrayList<>();
             for(CompanyTalk talk: companyTalkList){
