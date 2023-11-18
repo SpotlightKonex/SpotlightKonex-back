@@ -11,7 +11,7 @@ public class CompanyTransactionController {
     private final CompanyTransactionServiceImpl CompanyTransactionService;
 
     @GetMapping("/analysis/transaction/{crop_code}")
-    public ResponseEntity<?> searchLike(@PathVariable String crop_code) {
+    public ResponseEntity<?> searchTransaction(@PathVariable String crop_code) {
         return CompanyTransactionService.searchTransaction(crop_code);
     }
 
