@@ -47,24 +47,20 @@ public class EnterpriseServiceImpl implements EnterpriseService {
                 return ResponseEntity.noContent().build(); //204 리턴
             }
 
-            List<TopResponseDTO> enterpriseTopDtoList; //받아온 결과를 담을 리스트
-            switch (rankType){
-                case "amount":
-                    enterpriseTopDtoList = enterpriseRepository.getTop11ByTransactionAmount()
-                            .orElseThrow(() -> new NullPointerException("거래대금 top 11 조회에 실패했습니다."));
-                    break;
-                case "like":
-                    enterpriseTopDtoList = enterpriseRepository.getTop11ByLike()
-                            .orElseThrow(() -> new NullPointerException("좋아요수 top 11 조회에 실패했습니다."));
-                    break;
-                case "views":
-                    enterpriseTopDtoList = enterpriseRepository.getTop11ByViews()
-                            .orElseThrow(() -> new NullPointerException("조회수 top 11 조회에 실패했습니다."));
-                    break;
-                default: //일치하지 않을 때
-                    return ResponseEntity.notFound().build(); //404 리턴
-            }
+            System.out.println("rankType : " + rankType);
 
+            List<TopResponseDTO> enterpriseTopDtoList; //받아온 결과를 담을 리스트
+            switch (rankType) {
+                case "amount" -> enterpriseTopDtoList = enterpriseRepository.getTop11ByTransactionAmount()
+                        .orElseThrow(() -> new NullPointerException("거래대금 top 11 조회에 실패했습니다."));
+                case "like" -> enterpriseTopDtoList = enterpriseRepository.getTop11ByLike()
+                        .orElseThrow(() -> new NullPointerException("좋아요수 top 11 조회에 실패했습니다."));
+                case "views" -> enterpriseTopDtoList = enterpriseRepository.getTop11ByViews()
+                        .orElseThrow(() -> new NullPointerException("조회수 top 11 조회에 실패했습니다."));
+                default -> { //일치하지 않을 때
+                    return ResponseEntity.notFound().build(); //404 리턴
+                }
+            }
             return ResponseEntity.ok().body(enterpriseTopDtoList); //200
         } catch (Exception e){
             ResponseDTO<Object> responseDTO = ResponseDTO.builder().message(e.getMessage()).build();
