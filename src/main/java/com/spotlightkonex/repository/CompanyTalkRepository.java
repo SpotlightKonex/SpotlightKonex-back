@@ -15,5 +15,5 @@ public interface CompanyTalkRepository extends JpaRepository<CompanyTalk, Long> 
     /**
      * 최신순 해당 기업 채팅 모아보기
      */
-    Optional<List<CompanyTalk>> findAllByKonexStockCorpCodeAndWriterTypeOrderByCreatedAt(String corpCode, int writeType);
+    Optional<List<CompanyTalk>> findAllByKonexStockCorpCodeAndWriterTypeOrderByCreatedAtDesc(String corpCode, int writeType);
 }
