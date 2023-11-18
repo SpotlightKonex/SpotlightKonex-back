@@ -1,5 +1,6 @@
 package com.spotlightkonex.controller;
 
+import com.spotlightkonex.domain.dto.TalkRequestDTO;
 import com.spotlightkonex.service.TalkService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,10 @@ public class EnterpriseDetailController {
     }
 
     /**
-     * 기업 댓글 생성
+     * 기업 댓글 등록
      * */
+    @PostMapping("talk")
+    public ResponseEntity<?> writeTalkByCorpCode(@RequestBody TalkRequestDTO talkRequestDTO){
+        return talkService.writeCompanyTalkByCorpCode(talkRequestDTO);
+    }
 }
