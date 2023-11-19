@@ -22,7 +22,7 @@ public class CompanyViews {
     private Long viewsSeq;
 
     @Column(name = "count")
-    private Long count; //좋아요수
+    private Long count; //조회수
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "corp_code")
