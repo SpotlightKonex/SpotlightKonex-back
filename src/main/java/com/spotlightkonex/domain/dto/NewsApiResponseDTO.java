@@ -1,4 +1,4 @@
-package com.spotlightkonex.news.controller.dto;
+package com.spotlightkonex.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -8,9 +8,9 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class NewsApiResponse {
+public class NewsApiResponseDTO {
 
     @JsonProperty("items")
-    private List<NewsApiDetailResponse> newsApiDetailResponses;
+    private List<NewsApiDetailResponseDTO> newsApiDetailResponsDTOS;
 
 }

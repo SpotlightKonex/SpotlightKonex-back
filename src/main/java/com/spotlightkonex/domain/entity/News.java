@@ -1,4 +1,4 @@
-package com.spotlightkonex.news.domain.entity;
+package com.spotlightkonex.domain.entity;
 
 import lombok.Builder;
 import lombok.Getter;

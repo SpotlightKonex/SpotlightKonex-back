@@ -1,4 +1,4 @@
-package com.spotlightkonex.news.controller.dto;
+package com.spotlightkonex.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class NewsApiDetailResponse {
+public class NewsApiDetailResponseDTO {
 
     @JsonProperty("title")
     private String title;

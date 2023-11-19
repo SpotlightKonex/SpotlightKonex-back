@@ -1,10 +1,10 @@
-package com.spotlightkonex.news.service;
+package com.spotlightkonex.service;
 
-import com.spotlightkonex.news.controller.dto.NewsApiDetailResponse;
-import com.spotlightkonex.news.controller.dto.NewsApiResponse;
-import com.spotlightkonex.news.controller.dto.NewsResponse;
-import com.spotlightkonex.news.domain.entity.News;
-import com.spotlightkonex.news.repository.NewsRepository;
+import com.spotlightkonex.domain.dto.NewsApiDetailResponseDTO;
+import com.spotlightkonex.domain.dto.NewsApiResponseDTO;
+import com.spotlightkonex.domain.dto.NewsResponseDTO;
+import com.spotlightkonex.domain.entity.News;
+import com.spotlightkonex.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -31,14 +31,21 @@ public class NewsService {
     @Value("${naver.clientSecret}")
     String clientSecret;
 
-    public List<NewsResponse> getNews(String companyName) {
+    public List<NewsResponseDTO> getNews(String companyName) {
 
         saveNews(); // 추후 삭제
         List<News> news = newsRepository.getNewsByCompanyName(companyName).orElseThrow();
 
+//        List<News> news = new ArrayList<>();
+//
+//        if (saveNews()) {
+//            news = newsRepository.findAll();
+//            // List<News> news = newsRepository.getNewsByCompanyName(companyName).orElseThrow();
+//        }
+
         return news
                 .stream()
-                .map(NewsResponse::new)
+                .map(NewsResponseDTO::new)
                 .collect(Collectors.toList());
     }
 
@@ -63,13 +70,13 @@ public class NewsService {
         UriComponentsBuilder uri = UriComponentsBuilder.fromHttpUrl(apiURL);
         URI finalUri = uri.build().encode().toUri();
 
-        NewsApiResponse response = restTemplate.exchange(finalUri, HttpMethod.GET, entity, NewsApiResponse.class).getBody();
+        NewsApiResponseDTO response = restTemplate.exchange(finalUri, HttpMethod.GET, entity, NewsApiResponseDTO.class).getBody();
 
         if (response == null) {
             // throw new CustomException(ErrorCode.NEWS_NOT_FOUND);
         }
 
-        for (NewsApiDetailResponse apiDetailResponse : response.getNewsApiDetailResponses()) {
+        for (NewsApiDetailResponseDTO apiDetailResponse : response.getNewsApiDetailResponsDTOS()) {
             String title = replaceText(apiDetailResponse.getTitle());
             String link = apiDetailResponse.getLink();
             String description = replaceText(apiDetailResponse.getDescription());

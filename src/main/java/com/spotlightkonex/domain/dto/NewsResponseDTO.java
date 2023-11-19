@@ -1,13 +1,13 @@
-package com.spotlightkonex.news.controller.dto;
+package com.spotlightkonex.domain.dto;
 
-import com.spotlightkonex.news.domain.entity.News;
+import com.spotlightkonex.domain.entity.News;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class NewsResponse {
+public class NewsResponseDTO {
     private final Long id;
     private final String title;
     private final String link;
@@ -15,7 +15,7 @@ public class NewsResponse {
     private final String pubDate;
 
     @Builder
-    public NewsResponse(News news) {
+    public NewsResponseDTO(News news) {
         this.id = news.getId();
         this.title = news.getTitle();
         this.link = news.getLink();

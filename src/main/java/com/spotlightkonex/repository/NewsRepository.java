@@ -1,6 +1,6 @@
-package com.spotlightkonex.news.repository;
+package com.spotlightkonex.repository;
 
-import com.spotlightkonex.news.domain.entity.News;
+import com.spotlightkonex.domain.entity.News;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
