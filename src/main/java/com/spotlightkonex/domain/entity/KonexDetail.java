@@ -33,8 +33,8 @@ public class KonexDetail {
     @Column(name="trading_volume")
     private String tradingVolume; //거래량
 
-    @Column(name="transaction_amount")
-    private Long transactionAmount; //거래대금
+    @Column(name="trading_amount")
+    private Long tradingAmount; //거래대금
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "corp_code") //기업 고유 번호

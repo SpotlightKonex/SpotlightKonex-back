@@ -4,9 +4,10 @@ import com.spotlightkonex.domain.entity.KonexStock;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface KonexStockRepository extends JpaRepository<KonexStock, Long> {
-    KonexStock findByCorpCode(String cropCode);
+    Optional<KonexStock> findByCorpCode(String cropCode);
 
     /**
      * 키워드가 들어간 종목 코드에 해당하는 기업 조회
