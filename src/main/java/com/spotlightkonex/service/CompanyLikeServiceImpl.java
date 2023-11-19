@@ -54,10 +54,14 @@ public class CompanyLikeServiceImpl implements CompanyLikeService {
     }
 
     @Override
-    public ResponseEntity<?> getTotalCompanyLike(String corpCode) {
+    public ResponseEntity<?> getTotalCompanyLike(String cropCode) {
         try {
+
+            konexStockRepository.findByCorpCode(cropCode)
+                    .orElseThrow(() -> new NullPointerException("잘못된 기업코드입니다."));
+
             Long totalCompanyLike;
-            List<CompanyLike> companyLikeList = companyLikeRepository.findByKonexStockCorpCodeOrderByCreatedAtDesc(corpCode);
+            List<CompanyLike> companyLikeList = companyLikeRepository.findByKonexStockCorpCodeOrderByCreatedAtDesc(cropCode);
 
             if (companyLikeList == null) {
                 totalCompanyLike = 0L;
@@ -69,14 +73,14 @@ public class CompanyLikeServiceImpl implements CompanyLikeService {
 
             CompanyLikeResponseDTO dto = CompanyLikeResponseDTO
                     .builder()
-                    .corpCode(corpCode)
+                    .corpCode(cropCode)
                     .count(totalCompanyLike)
                     .build();
 
             return new ResponseEntity<>(dto, HttpStatus.OK);
 
         } catch (Exception e) {
-            return new ResponseEntity<>("좋아요 수 조회 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("좋아요 수 조회 실패", HttpStatus.NOT_FOUND);
         }
     }
 
