@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EnterpriseRepository extends JpaRepository<KonexDetail, Long> {
+public interface KonexDetailRepository extends JpaRepository<KonexDetail, Long> {
     /**
      * 모든 코넥스 기업 조회
      * */

@@ -3,6 +3,7 @@ package com.spotlightkonex.controller;
 import com.spotlightkonex.domain.dto.TalkRequestDTO;
 import com.spotlightkonex.service.EnterpriseDetailService;
 import com.spotlightkonex.service.TalkService;
+import com.spotlightkonex.service.TradingAmountRankService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/enterprise")
 public class EnterpriseDetailController {
     private final TalkService talkService;
-    private final EnterpriseDetailService detailService;
+    private final EnterpriseDetailService enterpriseDetailService;
+    private final TradingAmountRankService tradingAmountRankService;
 
     /**
      * 최신순 기업 댓글 조회
@@ -41,6 +43,16 @@ public class EnterpriseDetailController {
      * */
     @GetMapping("/{corpCode}")
     public ResponseEntity<?> getCompanyDetail(@PathVariable String corpCode){
-        return detailService.getCompanyDetailByCorpCode(corpCode);
+        return enterpriseDetailService.getCompanyDetailByCorpCode(corpCode);
+    }
+
+    /**
+     * 거래대금 기준 순위변동 조회(4차 ~ 1차 순)
+     * @param corpCode 조회할 기업 고유코드
+     * @return 기업 순위 리스트(1차 ~ 4차)
+     * */
+    @GetMapping("/rank/{corpCode}")
+    public ResponseEntity<?> getTradingAmountRank(@PathVariable String corpCode){
+        return tradingAmountRankService.getTradingAmountRankByCorpCode(corpCode);
     }
 }
