@@ -47,7 +47,7 @@ public class CompanyTransactionServiceImpl implements CompanyTransactionService 
 
             return new ResponseEntity<>(responseDtoList, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>("좋아요 수 조회 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("거래량 수 조회 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
