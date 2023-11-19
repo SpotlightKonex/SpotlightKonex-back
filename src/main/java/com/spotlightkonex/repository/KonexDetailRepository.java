@@ -5,6 +5,7 @@ import com.spotlightkonex.domain.dto.TopResponseDTO;
 import com.spotlightkonex.domain.entity.KonexDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -46,4 +47,10 @@ public interface KonexDetailRepository extends JpaRepository<KonexDetail, Long> 
             "SELECT v.corp_code as corpCode, SUM(v.count) as viewsCount " +
             "FROM company_views v GROUP BY v.corp_code ORDER BY viewsCount DESC LIMIT 11) sub)", nativeQuery = true)
     Optional<List<TopResponseDTO>> getTop11ByViews();
+
+    /**
+     * 해당 일자 기준 거래대금 순 기업 상세 리스트
+     * */
+    @Query(value = "SELECT d FROM KonexDetail d WHERE DATE_FORMAT(d.createdAt, '%Y-%m-%d') = :createAt ORDER BY d.tradingAmount DESC")
+    Optional<List<KonexDetail>> findAllByCreatedAtOrderByTradingAmountDesc(@Param("createAt") String createAt);
 }

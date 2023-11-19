@@ -33,4 +33,9 @@ public class TradingAmountRank {
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+
+    public TradingAmountRank(int ranking, KonexStock konexStock) {
+        this.ranking = ranking;
+        this.konexStock = konexStock;
+    }
 }
