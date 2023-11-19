@@ -1,7 +1,9 @@
 package com.spotlightkonex.service;
 
 import com.spotlightkonex.domain.dto.CompanyLikeListResponseDto;
+import com.spotlightkonex.domain.dto.CompanyLikeResponseDTO;
 import com.spotlightkonex.domain.entity.CompanyLike;
+import com.spotlightkonex.domain.entity.KonexStock;
 import com.spotlightkonex.repository.CompanyLikeRepository;
 import com.spotlightkonex.repository.KonexStockRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,4 +52,36 @@ public class CompanyLikeServiceImpl implements CompanyLikeService {
             return new ResponseEntity<>("좋아요 수 조회 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    public ResponseEntity<?> getTotalCompanyLike(String corpCode) {
+        try {
+            Long totalCompanyLike;
+            List<CompanyLike> companyLikeList = companyLikeRepository.findByKonexStockCorpCodeOrderByCreatedAtDesc(corpCode);
+
+            if (companyLikeList == null) {
+                totalCompanyLike = 0L;
+            } else {
+                totalCompanyLike = companyLikeList.stream()
+                        .mapToLong(CompanyLike::getCount)
+                        .sum();
+            }
+
+            CompanyLikeResponseDTO dto = CompanyLikeResponseDTO
+                    .builder()
+                    .corpCode(corpCode)
+                    .count(totalCompanyLike)
+                    .build();
+
+            return new ResponseEntity<>(dto, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>("좋아요 수 조회 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+//    @Override
+//    public ResponseEntity<?> postCompanyLike(String corpCode) {
+//
+//    }
 }
