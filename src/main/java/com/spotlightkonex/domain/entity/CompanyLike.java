@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name ="company_like")
