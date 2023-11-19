@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface NewsRepository extends JpaRepository<News, Long> {
 
-    @Query(value = "SELECT * FROM news WHERE title LIKE %:companyName% ORDER BY RAND() LIMIT 2", nativeQuery = true)
-    Optional<List<News>> findRandomNewsByCompanyName(@Param("companyName") String companyName);
+    @Query(value = "SELECT * FROM news WHERE title LIKE %:cropName% ORDER BY RAND() LIMIT 2", nativeQuery = true)
+    Optional<List<News>> findRandomNewsByCropName(@Param("cropName") String cropName);
 
 }
