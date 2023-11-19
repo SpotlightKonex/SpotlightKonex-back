@@ -28,9 +28,13 @@ public class CompanyMember {
 
     private String password; //관리자 비밀번호
 
-    private String nickname; //닉네임
+    @Column(name = "corp_name")
+    private String corpName; // 기업명
 
     private String phone; //관리자 번호
+
+    @Column(name = "corp_code")
+    private String corpCode; // 기업 고유번호
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "corp_code")
