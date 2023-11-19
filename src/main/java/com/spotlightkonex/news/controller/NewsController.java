@@ -19,9 +19,7 @@ public class NewsController {
     private final NewsService newsService;
 
     @GetMapping("/v1/news")
-    public ResponseEntity<List<NewsResponse>> getNews(
-            @RequestParam String companyName
-    ) {
-        return ResponseEntity.ok(newsService.getNews(companyName));
+    public ResponseEntity<List<NewsResponse>> getNews() {
+        return ResponseEntity.ok(newsService.getNews());
     }
 }
