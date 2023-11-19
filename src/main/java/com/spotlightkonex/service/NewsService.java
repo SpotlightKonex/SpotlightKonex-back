@@ -3,7 +3,9 @@ package com.spotlightkonex.service;
 import com.spotlightkonex.domain.dto.NewsApiDetailResponseDTO;
 import com.spotlightkonex.domain.dto.NewsApiResponseDTO;
 import com.spotlightkonex.domain.dto.NewsResponseDTO;
+import com.spotlightkonex.domain.entity.KonexStock;
 import com.spotlightkonex.domain.entity.News;
+import com.spotlightkonex.repository.KonexStockRepository;
 import com.spotlightkonex.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class NewsService {
 
     private final NewsRepository newsRepository;
+    private final KonexStockRepository konexStockRepository;
 
     @Value("${naver.clientId}")
     String clientId;
@@ -32,11 +35,15 @@ public class NewsService {
     @Value("${naver.clientSecret}")
     String clientSecret;
 
-    public List<NewsResponseDTO> getNews(String companyName) {
+    public List<NewsResponseDTO> getNews(String cropCode) {
 
 //        newsRepository.deleteAll();
 //        saveNews();
-        List<News> news = newsRepository.findRandomNewsByCompanyName(companyName).orElseThrow();
+
+        KonexStock konexStock = konexStockRepository.findByCorpCode(cropCode).orElseThrow();
+        String cropName = konexStock.getCorpName();
+
+        List<News> news = newsRepository.findRandomNewsByCropName(cropName).orElseThrow();
 
         return news
                 .stream()

@@ -11,15 +11,15 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+// @RequestMapping("/api")
 public class NewsController {
 
     private final NewsService newsService;
 
-    @GetMapping("/v1/news")
+    @GetMapping("/news")
     public ResponseEntity<List<NewsResponseDTO>> getNews(
-            @RequestParam String companyName
+            @RequestParam String cropCode
     ) {
-        return ResponseEntity.ok(newsService.getNews(companyName));
+        return ResponseEntity.ok(newsService.getNews(cropCode));
     }
 }
