@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name ="company_member")
 @EntityListeners(AuditingEntityListener.class)
-
 public class CompanyMember {
     @Id
     @Column(name = "member_seq")
