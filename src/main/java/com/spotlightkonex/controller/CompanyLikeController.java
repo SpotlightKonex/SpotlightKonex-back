@@ -23,4 +23,10 @@ public class CompanyLikeController {
         return CompanyLikeService.getTotalCompanyLike(corpCode);
     }
 
+    @PostMapping("/enterprise/like")
+    public ResponseEntity<?> postCompanyLike(
+            @RequestParam String corpCode
+    ) {
+        return CompanyLikeService.postCompanyLike(corpCode);
+    }
 }
