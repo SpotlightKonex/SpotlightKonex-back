@@ -11,7 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,12 +90,11 @@ public class CompanyLikeServiceImpl implements CompanyLikeService {
     @Override
     public ResponseEntity<?> postCompanyLike(String cropCode) {
         try {
-
             KonexStock konexStock = konexStockRepository.findByCorpCode(cropCode)
                     .orElseThrow(() -> new NullPointerException("잘못된 기업코드입니다."));
 
-            LocalDate startOfDay = LocalDate.now().atStartOfDay().toLocalDate(); // 오늘 날짜의 시작
-            LocalDate endOfDay = LocalDate.now().plusDays(1).atStartOfDay().toLocalDate(); // 오늘 날짜의 끝
+            LocalDateTime startOfDay = LocalDateTime.now().with(LocalTime.MIN);
+            LocalDateTime endOfDay = LocalDateTime.now().with(LocalTime.MAX);
 
             Optional<CompanyLike> existingLikeToday = companyLikeRepository.findByKonexStockCorpCodeAndCreatedAtBetween(
                     cropCode, startOfDay, endOfDay);
@@ -114,7 +114,6 @@ public class CompanyLikeServiceImpl implements CompanyLikeService {
             }
 
             return ResponseEntity.ok().body("좋아요 등록 성공");
-
         } catch (Exception e) {
             return new ResponseEntity<>("좋아요 수 조회 실패", HttpStatus.NOT_FOUND);
         }
