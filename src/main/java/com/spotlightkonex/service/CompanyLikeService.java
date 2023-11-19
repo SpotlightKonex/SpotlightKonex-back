@@ -7,5 +7,5 @@ public interface CompanyLikeService {
 
     ResponseEntity<?> getTotalCompanyLike(String cropCode);
 
-    // ResponseEntity<?> postCompanyLike(String cropCode);
+    ResponseEntity<?> postCompanyLike(String cropCode);
 }
