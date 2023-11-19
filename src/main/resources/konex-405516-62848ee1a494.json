@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "konex-405516",
+  "private_key_id": "62848ee1a4940afbf16b6b93bd751fa72c479a72",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCXGAssX21R/2KE\nT1HHGGLrHFPZ/t2aZiDJQnTCMUAIRQZSABlr1dTAvbgorEfiIfTx1nrEVJ2FZNMi\ngKmLOjanRemu1RxFWoWlL8FA1PEeid2624GcEDLZkZHovyX1NfMrR9DEJHtsFjvY\nD7ZgBPZ091hDAN5J9cO6LvOuY20fBukUzJtGSPY0dFgKpeeuBTS12ye+j+aUqrjf\nshR7Ec09FeYM5SUOLLjSjaFKhGmyJxh0EFS3SukmoFf164sGDLbtoarbPoS2p3z/\nBETh1+IorZG2yCAfOyuHnxB4qS0jaJC+qSSERQlXeON5boS98oKrwfqtmrogpuwA\nLqZ0Fxd3AgMBAAECggEAEo0OriOHShaHk4Qjn8TEPGateun6bl8UrnE84aznVjyX\nUpEVjfJinUmN51yDtOWDa//v8dQLxRmEfMt8RY5fsHj6gI9E2dUL7KSo3xtmAWBe\n+3bA+pbYj3L6ja+OawV1Nj6qiLKL/tDaBySiuTZSxjiqOwvLvxvwLJdgLuyhNLpV\niKJrPqZvaZAzlNX5P65k0NXHpa8XvnF7si7LEvrbxTRIso8rl7ZCy6WrWkHG+Hbe\n5OZVnFXM04MKNttUFDwmw0geGvVOiXJrBBFt0/B4/zjiMCO3cH7cp24UcTOsbB/h\ncIL4lgnhJcSOM4vbuVMYZwsIbnTN9oDp+LKlHEyL6QKBgQDU25nZcI46wDKpQcXn\nZmyVcezUvX/xObDXmHc50FCPV0/VJGa/36J/T1rXVDH+uxSPZFdyNBRuId5gyPMR\nqB5DMdse/CPdwfPSQc2ySSEiIQVV2r1TTfwlR3qfKzm/5H9du8fQ6cF+geBbUqQO\nI/7smzspSLjKvJBLd6tXRYKYOQKBgQC1t76GToJ3HYp8qKkV6LQD12gc510xGlo6\nPmre7/yRphQEH54YGP1pMLgL3pVx6LaDyZQfRiF2KCf9QXE23xPRp1qmLh6hE/IW\n3PNRomRZ4aRW3quC64wz+bZVrZOk7bWPtTjxMwEsk9fwtWJXANC90CagOWZWDGTg\nhpWb6/RNLwKBgAeuaQ3ktu091FYxTm/8TTzTYKWItR5CY7RUBzFp6A5UK0hYyPBx\npI6NkYyluCwmGibWiyVO5dHXnQvHFKZ1d6obGXozxSOShTb4MvEVHIH7yRKBE0X3\nUXsS6kTmLW5UU5hRV3Odi+MB0tPY1pzABcoKDAeAXVLLnTVr+x3qHz1ZAoGAHSZh\nkMftU9BQU9j2bsZKgkc+s0xF/cd9a9RxblvPB0o98b9kq/buR76B9514GbK7/H4M\nncuxOHQOniiuUaANXNdcykWhsjMx5YsCGTlUobp5k1na54CDmB7ZqfrTMWTUeD4Y\n6VBGQvFgdYOTR+OgmKJYX+F1Uh5g3Eeank2Gfg8CgYBEvhJA34pr9Wn76/aeP+Hd\nebO+qzRE8lj0vjH2L4bHnEOn7pMGXremtXVfbrv+BZy3w9uCjG950tJ5t2gP6ha/\nwUB5NwOidBr3JngAshYbbJxwn9hsK5E18frhCYYfaYZiopV2slC21JZUOROeaWns\nPO0XNiazPRzZVAs1t4fZBQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "konexview@konex-405516.iam.gserviceaccount.com",
+  "client_id": "100667397709549901619",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/konexview%40konex-405516.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
