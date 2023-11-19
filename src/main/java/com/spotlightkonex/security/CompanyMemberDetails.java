@@ -1,5 +1,6 @@
-package com.spotlightkonex.domain.entity;
+package com.spotlightkonex.security;
 
+import com.spotlightkonex.domain.entity.CompanyMember;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,7 +1,6 @@
-package com.spotlightkonex.service;
+package com.spotlightkonex.security;
 
 import com.spotlightkonex.domain.entity.CompanyMember;
-import com.spotlightkonex.domain.entity.CompanyMemberDetails;
 import com.spotlightkonex.repository.CompanyMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
