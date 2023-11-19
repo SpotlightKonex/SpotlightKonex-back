@@ -34,6 +34,8 @@ public class NewsService {
 
     public List<NewsResponseDTO> getNews(String companyName) {
 
+//        newsRepository.deleteAll();
+//        saveNews();
         List<News> news = newsRepository.findRandomNewsByCompanyName(companyName).orElseThrow();
 
         return news
