@@ -31,10 +31,10 @@ public class NewsService {
     @Value("${naver.clientSecret}")
     String clientSecret;
 
-    public List<NewsResponse> getNews() {
+    public List<NewsResponse> getNews(String companyName) {
 
         saveNews(); // 추후 삭제
-        List<News> news = newsRepository.findAll();
+        List<News> news = newsRepository.getNewsByCompanyName(companyName).orElseThrow();
 
         return news
                 .stream()
@@ -51,7 +51,7 @@ public class NewsService {
 
     private void saveKeywordNews(String keyword) {
 
-        String apiURL = "https://openapi.naver.com/v1/search/news.json?query=(주)" + keyword + "&display=30&sort=sim"; // 정확도순
+        String apiURL = "https://openapi.naver.com/v1/search/news.json?query=(주)" + keyword + "&display=20&sort=sim"; // 정확도순
 
         RestTemplate restTemplate = new RestTemplate();
 
