@@ -26,7 +26,7 @@ public class EnterpriseDetailServiceImpl implements EnterpriseDetailService{
                     .orElseThrow(() -> new NullPointerException("해당하는 기업을 찾을 수 없습니다."));
 
             EnterpriseDetailDTO detailDTO = EnterpriseDetailDTO.builder()
-                    .corName(konexStock.getCeoName())
+                    .corpName(konexStock.getCorpName())
                     .indutyName(konexStock.getIndutyName())
                     .establish_date(konexStock.getEstablishDate())
                     .public_date(konexStock.getPublicDate())

@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @RequiredArgsConstructor
 public class EnterpriseDetailDTO {
-    private final String corName; //기업명
+    private final String corpName; //기업명
     private final String indutyName; //업종명
     private final String establish_date; //설립일
     private final String public_date; //상장일
