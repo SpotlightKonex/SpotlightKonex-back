@@ -3,7 +3,7 @@ package com.spotlightkonex.service;
 import com.spotlightkonex.domain.dto.EnterpriseDTO;
 import com.spotlightkonex.domain.dto.ResponseDTO;
 import com.spotlightkonex.domain.dto.TopResponseDTO;
-import com.spotlightkonex.repository.EnterpriseRepository;
+import com.spotlightkonex.repository.KonexDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class EnterpriseServiceImpl implements EnterpriseService {
-    private final EnterpriseRepository enterpriseRepository;
+    private final KonexDetailRepository enterpriseRepository;
 
     /**
      * 모든 코넥스 기업 조회
