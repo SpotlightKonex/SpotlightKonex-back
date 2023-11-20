@@ -19,6 +19,9 @@ public class BoardListResponseDto {
     // 내용
     private String context;
 
+    // 게시판 수
+    private Long noticeSeq;
+
     // 생성일
 //    private LocalDateTime createdAt;
 

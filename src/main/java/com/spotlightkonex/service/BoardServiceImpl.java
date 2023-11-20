@@ -1,6 +1,7 @@
 package com.spotlightkonex.service;
 
 import com.spotlightkonex.domain.dto.BoardListResponseDto;
+import com.spotlightkonex.domain.dto.BoardPutRequestDto;
 import com.spotlightkonex.domain.entity.KonexStock;
 import com.spotlightkonex.repository.KonexStockRepository;
 import lombok.RequiredArgsConstructor;
@@ -60,6 +61,7 @@ public class BoardServiceImpl implements BoardService {
                         .corpCode(board.getKonexStock().getCorpCode())
                         .title(board.getTitle())
                         .context(board.getContext())
+                        .noticeSeq(board.getNoticeSeq())
                         .build();
                 responseDtoList.add(dto);
             }
@@ -72,9 +74,9 @@ public class BoardServiceImpl implements BoardService {
     // 게시물 수정
     @Override
     @Transactional
-    public ResponseEntity<?> updateBoard(Long noticeSeq, BoardRequestDto requestDto) {
+    public ResponseEntity<?> updateBoard(BoardPutRequestDto requestDto) {
         try {
-            Board board = boardRepository.findByNoticeSeq(noticeSeq);
+            Board board = boardRepository.findByNoticeSeq(requestDto.getNoticeSeq());
 
             if (board == null) {
                 ResponseEntity.status(HttpStatus.NOT_FOUND)
