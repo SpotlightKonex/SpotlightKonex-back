@@ -9,6 +9,7 @@ import com.spotlightkonex.domain.entity.KonexStock;
 import com.spotlightkonex.repository.CompanyMemberRepository;
 import com.spotlightkonex.repository.CompanyTalkRepository;
 import com.spotlightkonex.repository.KonexStockRepository;
+import com.spotlightkonex.security.CompanyMemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -68,11 +69,12 @@ public class TalkServiceImpl implements TalkService{
 
     /**
      * 기업 댓글 작성
+     * @param companyMemberDetails 로그인 인증 정보
      * @param talkRequestDTO 작성한 댓글 정보 및 작성자
      * @return 완료 여부
      * */
     @Override
-    public ResponseEntity<?> writeCompanyTalkByCorpCode(TalkRequestDTO talkRequestDTO) {
+    public ResponseEntity<?> writeCompanyTalkByCorpCode(CompanyMemberDetails companyMemberDetails, TalkRequestDTO talkRequestDTO) {
         try{
             KonexStock konexStock = konexStockRepository.findByCorpCode(talkRequestDTO.getCorpCode())
                     .orElseThrow(() -> new NullPointerException("잘못된 기업코드입니다."));
@@ -81,8 +83,11 @@ public class TalkServiceImpl implements TalkService{
                 return ResponseEntity.noContent().build();
 
             boolean isCompanyManger = false; //해당 기업 관리자 여부
-            if(talkRequestDTO.getEmail() != null){ //기업 사용자일 때
-                CompanyMember member = companyMemberRepository.findByEmail(talkRequestDTO.getEmail())
+            if(talkRequestDTO.getEmail() != null && companyMemberDetails != null){ //로그인된 사용자일 때
+                if(!talkRequestDTO.getEmail().equals(companyMemberDetails.getEmail()))
+                    return ResponseEntity.status(403).body("인증된 사용자가 아닙니다.");
+
+                CompanyMember member = companyMemberRepository.findByEmail(companyMemberDetails.getEmail())
                         .orElseThrow(() -> new NullPointerException("관리자 이메일에 해당하는 가입 정보가 없습니다"));
 
                 // 로그인된 기업 담당자의 기업코드와 댓글을 입력한 기업코드가 동일할 때 == 관리자일때

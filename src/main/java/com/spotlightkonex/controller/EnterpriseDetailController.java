@@ -1,11 +1,13 @@
 package com.spotlightkonex.controller;
 
 import com.spotlightkonex.domain.dto.TalkRequestDTO;
+import com.spotlightkonex.security.CompanyMemberDetails;
 import com.spotlightkonex.service.EnterpriseDetailService;
 import com.spotlightkonex.service.TalkService;
 import com.spotlightkonex.service.TradingAmountRankService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,12 +30,13 @@ public class EnterpriseDetailController {
 
     /**
      * 기업 댓글 작성
+     * @param companyMemberDetails 로그인 인증 정보
      * @param talkRequestDTO 작성한 댓글 정보 및 작성자
      * @return 완료 여부
      * */
     @PostMapping("/talk")
-    public ResponseEntity<?> writeTalkByCorpCode(@RequestBody TalkRequestDTO talkRequestDTO){
-        return talkService.writeCompanyTalkByCorpCode(talkRequestDTO);
+    public ResponseEntity<?> writeTalkByCorpCode(@AuthenticationPrincipal CompanyMemberDetails companyMemberDetails, @RequestBody TalkRequestDTO talkRequestDTO){
+        return talkService.writeCompanyTalkByCorpCode(companyMemberDetails, talkRequestDTO);
     }
 
     /**
