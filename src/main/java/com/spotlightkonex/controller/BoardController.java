@@ -1,5 +1,6 @@
 package com.spotlightkonex.controller;
 
+import com.spotlightkonex.domain.dto.BoardPutRequestDto;
 import com.spotlightkonex.domain.dto.BoardRequestDto;
 import com.spotlightkonex.service.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -36,23 +37,23 @@ public class BoardController {
 
     /**
      * 기업 게시물 수정
-     * @param notice_seq
+     * @param
      * @param requestDto
      * @return ResponseEntity
      */
-    @PutMapping("/boards/{notice_seq}")
-    public ResponseEntity<?> updateBoard(@PathVariable Long notice_seq, @RequestBody BoardRequestDto requestDto) {
-        return boardService.updateBoard(notice_seq, requestDto);
+    @PutMapping("/boards")
+    public ResponseEntity<?> updateBoard(@RequestBody BoardPutRequestDto requestDto) {
+        return boardService.updateBoard(requestDto);
     }
 
     /**
      * 기업 게시물 삭제
-     * @param notice_seq
+     * @param
      * @return ResponseEntity
      */
-    @DeleteMapping("/boards/{notice_seq}")
-    public ResponseEntity<?> deleteBoard(@PathVariable Long notice_seq) {
-        return boardService.deleteBoard(notice_seq);
+    @DeleteMapping("/boards")
+    public ResponseEntity<?> deleteBoard(@RequestBody Long noticeSeq) {
+        return boardService.deleteBoard(noticeSeq);
     }
 
 }
