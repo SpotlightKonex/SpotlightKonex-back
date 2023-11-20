@@ -2,6 +2,7 @@ package com.spotlightkonex.security;
 
 import com.spotlightkonex.domain.entity.CompanyMember;
 import lombok.Builder;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
+@Data
 @Builder
 public class CompanyMemberDetails implements UserDetails {
     private Long memberSeq;
