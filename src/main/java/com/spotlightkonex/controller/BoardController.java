@@ -1,5 +1,6 @@
 package com.spotlightkonex.controller;
 
+import com.spotlightkonex.domain.dto.BoardDeleteRequestDto;
 import com.spotlightkonex.domain.dto.BoardPutRequestDto;
 import com.spotlightkonex.domain.dto.BoardRequestDto;
 import com.spotlightkonex.security.CompanyMemberDetails;
@@ -54,8 +55,8 @@ public class BoardController {
      * @return ResponseEntity
      */
     @DeleteMapping("/boards")
-    public ResponseEntity<?> deleteBoard(@RequestBody Long noticeSeq, @AuthenticationPrincipal CompanyMemberDetails companyMemberDetails) {
-        return boardService.deleteBoard(companyMemberDetails, noticeSeq);
+    public ResponseEntity<?> deleteBoard(@AuthenticationPrincipal CompanyMemberDetails companyMemberDetails, @RequestBody BoardDeleteRequestDto requestDto) {
+        return boardService.deleteBoard(companyMemberDetails, requestDto);
     }
 
 }
