@@ -35,13 +35,14 @@ public class NewsService {
     @Value("${naver.clientSecret}")
     String clientSecret;
 
-    public List<NewsResponseDTO> getNews(String cropCode) {
+    public List<NewsResponseDTO> getNews(String corpCode) {
 
 //        newsRepository.deleteAll();
 //        saveNews();
 
-        KonexStock konexStock = konexStockRepository.findByCorpCode(cropCode).orElseThrow();
+        KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode).orElseThrow();
         String cropName = konexStock.getCorpName();
+        System.out.println(cropName);
 
         List<News> news = newsRepository.findRandomNewsByCropName(cropName).orElseThrow();
 
@@ -53,6 +54,7 @@ public class NewsService {
 
     @Scheduled(cron = "0 0 8 * * *") // 스케줄러로 매일 오전 8시마다 실행되도록 설정
     private void saveNewsScheduler() {
+        newsRepository.deleteAll();
         saveNews();
     }
 
