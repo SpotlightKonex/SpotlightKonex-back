@@ -60,7 +60,7 @@ public class CompanyMemberDetails implements UserDetails {
                 .memberSeq(companyUser.getMemberSeq())
                 .email(companyUser.getEmail())
                 .password(companyUser.getPassword())
-                .corpName(companyUser.getCorpName())
+                .corpName(companyUser.getKonexStock().getCorpName())
                 .phone(companyUser.getPhone())
                 .corpCode(companyUser.getKonexStock().getCorpCode())
                 .build();
