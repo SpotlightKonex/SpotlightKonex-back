@@ -40,7 +40,7 @@ public class CompanyMember {
     private KonexStock konexStock;
 
     @Column(name = "corp_auth")
-    private int corpAuth; //인증 기업 여부 - 0: false, 1: true
+    private boolean corpAuth; //인증 기업 여부 - 0: false, 1: true
 
     @CreatedDate
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
