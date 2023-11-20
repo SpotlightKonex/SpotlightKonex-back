@@ -1,6 +1,5 @@
 package com.spotlightkonex.controller;
 
-import com.spotlightkonex.domain.entity.CompanyNews;
 import com.spotlightkonex.service.CompanyLikeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
