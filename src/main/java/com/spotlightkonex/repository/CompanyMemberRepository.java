@@ -3,6 +3,7 @@ package com.spotlightkonex.repository;
 import com.spotlightkonex.domain.entity.CompanyMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CompanyMemberRepository extends JpaRepository<CompanyMember, Long> {
@@ -15,4 +16,6 @@ public interface CompanyMemberRepository extends JpaRepository<CompanyMember, Lo
      * 기업 담당자 이메일 조회
      * */
     Optional<CompanyMember> findByKonexStockCorpCode(String corpCode);
+
+    Optional<List<CompanyMember>> findByCorpAuth(boolean corpAuth);
 }

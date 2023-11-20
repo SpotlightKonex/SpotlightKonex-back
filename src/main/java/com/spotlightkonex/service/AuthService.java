@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -102,5 +104,13 @@ public class AuthService {
 
     public boolean isDuplicatedEmail(String email) {
         return companyMemberRepository.findByEmail(email).isPresent();
+    }
+
+    public List<CompanyMemberResponseDto> getCompanyMemberByCorpAuth(boolean authStatus) {
+        List<CompanyMember> companyMembers = companyMemberRepository.findByCorpAuth(authStatus).orElseThrow();
+
+        return companyMembers.stream()
+                .map(CompanyMemberResponseDto::new)
+                .collect(Collectors.toList());
     }
 }
