@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyViewsController {
     private final CompanyViewsServiceImpl CompanyViewsService;
 
-    @GetMapping("/analysis/views/{crop_code}")
-    public ResponseEntity<?> searchViews(@PathVariable String crop_code) {
-        return CompanyViewsService.searchViews(crop_code);
+    @GetMapping("/analysis/views/{corp_code}")
+    public ResponseEntity<?> searchViews(@PathVariable String corp_code) {
+        return CompanyViewsService.searchViews(corp_code);
     }
 }

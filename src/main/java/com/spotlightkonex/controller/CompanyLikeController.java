@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyLikeController {
     private final CompanyLikeServiceImpl CompanyLikeService;
 
-    @GetMapping("/analysis/like/{crop_code}")
-    public ResponseEntity<?> searchLike(@PathVariable String crop_code) {
-        return CompanyLikeService.searchLike(crop_code);
+    @GetMapping("/analysis/like/{corp_code}")
+    public ResponseEntity<?> searchLike(@PathVariable String corp_code) {
+        return CompanyLikeService.searchLike(corp_code);
     }
 
     @GetMapping("/enterprise/like")

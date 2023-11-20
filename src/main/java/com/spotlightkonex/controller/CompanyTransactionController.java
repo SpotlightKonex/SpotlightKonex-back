@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyTransactionController {
     private final CompanyTransactionServiceImpl CompanyTransactionService;
 
-    @GetMapping("/analysis/transaction/{crop_code}")
-    public ResponseEntity<?> searchTransaction(@PathVariable String crop_code) {
-        return CompanyTransactionService.searchTransaction(crop_code);
+    @GetMapping("/analysis/transaction/{corp_code}")
+    public ResponseEntity<?> searchTransaction(@PathVariable String corp_code) {
+        return CompanyTransactionService.searchTransaction(corp_code);
     }
 
 }
