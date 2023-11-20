@@ -31,7 +31,6 @@ public class AuthService {
         CompanyMember companyMember = CompanyMember.builder()
                 .email(companyMemberDto.getEmail())
                 .password(passwordEncoder.encode(companyMemberDto.getPassword()))
-                .corpName(companyMemberDto.getCorpName())
                 .phone(companyMemberDto.getPhone())
                 .konexStock(konexStock)
                 .corpAuth(false)

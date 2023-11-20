@@ -27,9 +27,6 @@ public class CompanyMember {
 
     private String password; //관리자 비밀번호
 
-    @Column(name = "corp_name")
-    private String corpName; // 기업명
-
     private String phone; //관리자 번호
 
     @ManyToOne(fetch = FetchType.LAZY)
