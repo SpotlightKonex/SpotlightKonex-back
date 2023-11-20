@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class SignOutResponseDto {
     private String email; // 관리자 이메일
+    private String message;
 }
