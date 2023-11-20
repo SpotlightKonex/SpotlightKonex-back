@@ -3,6 +3,8 @@ package com.spotlightkonex.service;
 import com.spotlightkonex.domain.dto.*;
 import com.spotlightkonex.domain.entity.CompanyMember;
 import com.spotlightkonex.domain.entity.KonexStock;
+import com.spotlightkonex.exception.CustomException;
+import com.spotlightkonex.exception.ErrorCode;
 import com.spotlightkonex.repository.CompanyMemberRepository;
 import com.spotlightkonex.repository.KonexStockRepository;
 import com.spotlightkonex.security.TokenProvider;
@@ -11,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
@@ -24,6 +27,7 @@ public class AuthService {
     private final RedisTemplate<String, String> redisTemplate;
     private final KonexStockRepository konexStockRepository;
 
+    @Transactional
     public Long signUp(final CompanyMemberRequestDto companyMemberRequestDto) {
         KonexStock konexStock = konexStockRepository.findByCorpCode(companyMemberRequestDto.getCorpCode())
                 .orElseThrow(() -> new NullPointerException("해당하는 기업 코드가 존재하지 않습니다."));
@@ -42,6 +46,7 @@ public class AuthService {
         return save.getMemberSeq();
     }
 
+    @Transactional
     public SignInResponseDto signIn(final SignInRequestDto signInRequestDto) {
         CompanyMember companyUser = companyMemberRepository
                 .findByEmail(signInRequestDto.getEmail())
@@ -57,6 +62,7 @@ public class AuthService {
                 .build();
     }
 
+    @Transactional
     public SignOutResponseDto signOut(final SignOutRequestDto signOutRequestDto) {
         if (!tokenProvider.validateToken(signOutRequestDto.getAccessToken())) {
             System.out.println("잘못된 요쳥");
@@ -69,6 +75,28 @@ public class AuthService {
 
         return SignOutResponseDto.builder()
                 .email(signOutRequestDto.getEmail())
+                .build();
+    }
+
+    @Transactional
+    public CompanyMemberResponseDto approveCompanyMember(CompanyMemberRequestDto companyMemberRequestDto) {
+        CompanyMember companyMember = companyMemberRepository.findByEmail(companyMemberRequestDto.getEmail())
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
+
+        CompanyMember approvedCompanyMember = CompanyMember.builder().memberSeq(companyMember.getMemberSeq())
+                .email(companyMember.getEmail())
+                .password(companyMember.getPassword())
+                .phone(companyMember.getPhone())
+                .konexStock(companyMember.getKonexStock())
+                .corpAuth(true)
+                .createdAt(companyMember.getCreatedAt())
+                .build();
+
+        companyMemberRepository.save(approvedCompanyMember);
+
+        return CompanyMemberResponseDto.builder()
+                .message(ErrorCode.COMPANY_MEMBER_APPROVED.getMessage())
+                .memberSeq(approvedCompanyMember.getMemberSeq())
                 .build();
     }
 

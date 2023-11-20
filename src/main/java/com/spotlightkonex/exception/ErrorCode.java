@@ -48,6 +48,8 @@ public enum ErrorCode {
      * 200 OK
      */
     SIGNUP_SUCCESS(HttpStatus.OK, "회원가입 성공."),
+
+    COMPANY_MEMBER_APPROVED(HttpStatus.OK, "기업 회원 승인 완료.")
     ;
 
     private final HttpStatus status;
