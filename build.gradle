@@ -35,6 +35,7 @@ dependencies {
 
     // Swagger
     implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.15'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'
