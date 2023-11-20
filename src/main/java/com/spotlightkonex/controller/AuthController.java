@@ -1,6 +1,7 @@
 package com.spotlightkonex.controller;
 
 import com.spotlightkonex.domain.dto.*;
+import com.spotlightkonex.exception.ErrorCode;
 import com.spotlightkonex.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,24 +20,54 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody CompanyMemberDto companyMemberDto) {
-        if (companyMemberDto.getEmail() == null || companyMemberDto.getPassword() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1L);
+    public ResponseEntity<CompanyMemberResponseDto> signUp(@RequestBody CompanyMemberRequestDto companyMemberRequestDto) {
+        if (companyMemberRequestDto.getEmail() == null || companyMemberRequestDto.getPassword() == null) {
+            ErrorCode errorCode = ErrorCode.INVALID_INPUT;
+            CompanyMemberResponseDto responseDto = CompanyMemberResponseDto
+                    .builder()
+                    .message(errorCode.getMessage())
+                    .memberSeq(-1L)
+                    .build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
         }
-        if (!companyMemberDto.getEmail().matches(emailRegex)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1L);
+        if (!companyMemberRequestDto.getEmail().matches(emailRegex)) {
+            ErrorCode errorCode = ErrorCode.WRONG_EMAIL_FORMAT;
+            CompanyMemberResponseDto responseDto = CompanyMemberResponseDto
+                    .builder()
+                    .message(errorCode.getMessage())
+                    .memberSeq(-1L)
+                    .build();
+            return ResponseEntity.status(errorCode.getStatus()).body(responseDto);
         }
-        if (authService.isDuplicatedEmail(companyMemberDto.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(-1L);
+        if (authService.isDuplicatedEmail(companyMemberRequestDto.getEmail())) {
+            ErrorCode errorCode = ErrorCode.DUPLICATED_EMAIL;
+            CompanyMemberResponseDto responseDto = CompanyMemberResponseDto
+                    .builder()
+                    .message(errorCode.getMessage())
+                    .memberSeq(-1L)
+                    .build();
+            return ResponseEntity.status(errorCode.getStatus()).body(responseDto);
         }
-        Long corp_seq = authService.signUp(companyMemberDto);
-        return ResponseEntity.ok().body(corp_seq);
+        Long corp_seq = authService.signUp(companyMemberRequestDto);
+        ErrorCode code = ErrorCode.SIGNUP_SUCCESS;
+        CompanyMemberResponseDto responseDto = CompanyMemberResponseDto
+                .builder()
+                .message(code.getMessage())
+                .memberSeq(corp_seq)
+                .build();
+        return ResponseEntity.ok().body(responseDto);
     }
 
     @PostMapping("/signin")
     public ResponseEntity<SignInResponseDto> signIn(@RequestBody SignInRequestDto signInRequestDto) {
         if (!signInRequestDto.getEmail().matches(emailRegex)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SignInResponseDto());
+            ErrorCode errorCode = ErrorCode.WRONG_EMAIL_FORMAT;
+            SignInResponseDto responseDto = SignInResponseDto.builder()
+                    .email(signInRequestDto.getEmail())
+                    .accessToken("")
+                    .message(errorCode.getMessage())
+                    .build();
+            return ResponseEntity.status(errorCode.getStatus()).body(responseDto);
         }
         return ResponseEntity.ok().body(authService.signIn(signInRequestDto));
     }
@@ -44,7 +75,12 @@ public class AuthController {
     @PostMapping("/signout")
     public ResponseEntity<SignOutResponseDto> signOut(@RequestBody SignOutRequestDto signOutRequestDto) {
         if (!signOutRequestDto.getEmail().matches(emailRegex)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new SignOutResponseDto());
+            ErrorCode errorCode = ErrorCode.WRONG_EMAIL_FORMAT;
+            SignOutResponseDto responseDto = SignOutResponseDto.builder()
+                    .email(signOutRequestDto.getEmail())
+                    .message(errorCode.getMessage())
+                    .build();
+            return ResponseEntity.status(errorCode.getStatus()).body(responseDto);
         }
         return ResponseEntity.ok().body(authService.signOut(signOutRequestDto));
     }
