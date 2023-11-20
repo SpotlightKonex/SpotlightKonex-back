@@ -57,14 +57,14 @@ public class CompanyLikeServiceImpl implements CompanyLikeService {
     }
 
     @Override
-    public ResponseEntity<?> getTotalCompanyLike(String cropCode) {
+    public ResponseEntity<?> getTotalCompanyLike(String corpCode) {
         try {
 
-            konexStockRepository.findByCorpCode(cropCode)
+            konexStockRepository.findByCorpCode(corpCode)
                     .orElseThrow(() -> new NullPointerException("잘못된 기업코드입니다."));
 
             Long totalCompanyLike;
-            List<CompanyLike> companyLikeList = companyLikeRepository.findByKonexStockCorpCodeOrderByCreatedAtDesc(cropCode);
+            List<CompanyLike> companyLikeList = companyLikeRepository.findByKonexStockCorpCodeOrderByCreatedAtDesc(corpCode);
 
             if (companyLikeList == null) {
                 totalCompanyLike = 0L;
@@ -76,7 +76,7 @@ public class CompanyLikeServiceImpl implements CompanyLikeService {
 
             CompanyLikeResponseDTO dto = CompanyLikeResponseDTO
                     .builder()
-                    .corpCode(cropCode)
+                    .corpCode(corpCode)
                     .count(totalCompanyLike)
                     .build();
 
@@ -88,16 +88,16 @@ public class CompanyLikeServiceImpl implements CompanyLikeService {
     }
 
     @Override
-    public ResponseEntity<?> postCompanyLike(String cropCode) {
+    public ResponseEntity<?> postCompanyLike(String corpCode) {
         try {
-            KonexStock konexStock = konexStockRepository.findByCorpCode(cropCode)
+            KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode)
                     .orElseThrow(() -> new NullPointerException("잘못된 기업코드입니다."));
 
             LocalDateTime startOfDay = LocalDateTime.now().with(LocalTime.MIN);
             LocalDateTime endOfDay = LocalDateTime.now().with(LocalTime.MAX);
 
             Optional<CompanyLike> existingLikeToday = companyLikeRepository.findByKonexStockCorpCodeAndCreatedAtBetween(
-                    cropCode, startOfDay, endOfDay);
+                    corpCode, startOfDay, endOfDay);
 
             if (existingLikeToday.isPresent()) {
                 // 이미 오늘 등록된 좋아요가 있으면 count 값을 1 증가시키고 저장

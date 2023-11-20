@@ -18,8 +18,8 @@ public class NewsController {
 
     @GetMapping("/news")
     public ResponseEntity<List<NewsResponseDTO>> getNews(
-            @RequestParam String cropCode
+            @RequestParam String corpCode
     ) {
-        return ResponseEntity.ok(newsService.getNews(cropCode));
+        return ResponseEntity.ok(newsService.getNews(corpCode));
     }
 }
