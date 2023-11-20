@@ -2,9 +2,11 @@ package com.spotlightkonex.controller;
 
 import com.spotlightkonex.domain.dto.BoardPutRequestDto;
 import com.spotlightkonex.domain.dto.BoardRequestDto;
+import com.spotlightkonex.security.CompanyMemberDetails;
 import com.spotlightkonex.service.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController // JSON으로 데이터 주고 받음
@@ -21,8 +23,8 @@ public class BoardController {
      * @return ResponseEntity
      */
     @PostMapping("/boards")
-    public ResponseEntity<?> createBoard(@RequestBody BoardRequestDto requestDto) {
-        return boardService.createBoard(requestDto);
+    public ResponseEntity<?> createBoard(@AuthenticationPrincipal CompanyMemberDetails companyMemberDetails, @RequestBody BoardRequestDto requestDto) {
+        return boardService.createBoard(companyMemberDetails, requestDto);
     }
 
     /**
@@ -42,8 +44,8 @@ public class BoardController {
      * @return ResponseEntity
      */
     @PutMapping("/boards")
-    public ResponseEntity<?> updateBoard(@RequestBody BoardPutRequestDto requestDto) {
-        return boardService.updateBoard(requestDto);
+    public ResponseEntity<?> updateBoard(@AuthenticationPrincipal CompanyMemberDetails companyMemberDetails, @RequestBody BoardPutRequestDto requestDto) {
+        return boardService.updateBoard(companyMemberDetails, requestDto);
     }
 
     /**
@@ -52,8 +54,8 @@ public class BoardController {
      * @return ResponseEntity
      */
     @DeleteMapping("/boards")
-    public ResponseEntity<?> deleteBoard(@RequestBody Long noticeSeq) {
-        return boardService.deleteBoard(noticeSeq);
+    public ResponseEntity<?> deleteBoard(@RequestBody Long noticeSeq, @AuthenticationPrincipal CompanyMemberDetails companyMemberDetails) {
+        return boardService.deleteBoard(companyMemberDetails, noticeSeq);
     }
 
 }

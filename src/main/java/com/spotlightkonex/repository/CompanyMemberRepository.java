@@ -10,4 +10,9 @@ public interface CompanyMemberRepository extends JpaRepository<CompanyMember, Lo
      * 기업 관리자 이메일에 해당하는 기업 코드 조회
      * */
     Optional<CompanyMember> findByEmail(String email);
+
+    /**
+     * 기업 담당자 이메일 조회
+     * */
+    Optional<CompanyMember> findByKonexStockCorpCode(String corpCode);
 }
