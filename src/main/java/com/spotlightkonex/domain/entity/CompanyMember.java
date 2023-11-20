@@ -32,7 +32,7 @@ public class CompanyMember {
 
     private String phone; //관리자 번호
 
-    @Column(name = "corp_code")
+    @Column(name = "corp_code", insertable = false, updatable = false)
     private String corpCode; // 기업 고유번호
 
     @ManyToOne(fetch = FetchType.LAZY)
