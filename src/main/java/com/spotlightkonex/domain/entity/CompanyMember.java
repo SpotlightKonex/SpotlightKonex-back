@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name ="company_member")
 @EntityListeners(AuditingEntityListener.class)
-
 public class CompanyMember {
     @Id
     @Column(name = "member_seq")
@@ -28,16 +27,20 @@ public class CompanyMember {
 
     private String password; //관리자 비밀번호
 
-    private String nickname; //닉네임
+    @Column(name = "corp_name")
+    private String corpName; // 기업명
 
     private String phone; //관리자 번호
+
+    @Column(name = "corp_code", insertable = false, updatable = false)
+    private String corpCode; // 기업 고유번호
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "corp_code")
     private KonexStock konexStock;
 
     @Column(name = "corp_auth")
-    private int corpAuth; //인증 기업 여부 - 0: false, 1: true
+    private boolean corpAuth; //인증 기업 여부 - 0: false, 1: true
 
     @CreatedDate
     @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
