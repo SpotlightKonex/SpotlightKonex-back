@@ -1,8 +1,7 @@
 package com.spotlightkonex.service;
 
-import com.spotlightkonex.domain.dto.EnterpriseDTO;
 import com.spotlightkonex.domain.dto.ResponseDTO;
-import com.spotlightkonex.domain.dto.TopResponseDTO;
+import com.spotlightkonex.domain.dto.EnterpriseResponseDTO;
 import com.spotlightkonex.repository.KonexDetailRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     @Override
     public ResponseEntity<?> getEnterprise() {
         try {
-            List<EnterpriseDTO> enterpriseDtoList = konexDetailRepository.getAllEnterprise(LocalDate.now().minusDays(1).toString())
+            List<EnterpriseResponseDTO> enterpriseDtoList = konexDetailRepository.getAllEnterprise(LocalDate.now().toString())
                     .orElseThrow(() -> new NullPointerException("기업 정보를 불러오는 것을 실패했습니다."));
             return ResponseEntity.ok().body(enterpriseDtoList);
         } catch (Exception e){
@@ -50,7 +49,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
             System.out.println("rankType : " + rankType);
 
-            List<TopResponseDTO> enterpriseTopDtoList; //받아온 결과를 담을 리스트
+            List<EnterpriseResponseDTO> enterpriseTopDtoList; //받아온 결과를 담을 리스트
             switch (rankType) {
                 case "amount" -> enterpriseTopDtoList = konexDetailRepository.getTop11ByTransactionAmount()
                         .orElseThrow(() -> new NullPointerException("거래대금 top 11 조회에 실패했습니다."));
