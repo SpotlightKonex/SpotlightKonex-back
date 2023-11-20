@@ -24,9 +24,6 @@ public class KonexStock {
     @Column(name="stock_code", unique = true)
     private String stockCode; //종목 코드
 
-    @Column(name="ceo_name")
-    private String ceoName; //대표자명
-
     private String address; //주소
 
     private String url; //홈페이지
