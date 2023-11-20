@@ -5,5 +5,5 @@ public interface TopResponseDTO {
     String getCorpName(); //기업 명
     String getLogo(); //로고
     Long getPrice(); //시세
-    Long getCmpprevddPrc(); //전일대비지수
+    String getCmpprevddPrc(); //전일대비지수
 }

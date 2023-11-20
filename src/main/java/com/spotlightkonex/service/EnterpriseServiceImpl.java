@@ -9,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class EnterpriseServiceImpl implements EnterpriseService {
-    private final KonexDetailRepository enterpriseRepository;
+    private final KonexDetailRepository konexDetailRepository;
 
     /**
      * 모든 코넥스 기업 조회
@@ -24,7 +25,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     @Override
     public ResponseEntity<?> getEnterprise() {
         try {
-            List<EnterpriseDTO> enterpriseDtoList = enterpriseRepository.getAllEnterprise()
+            List<EnterpriseDTO> enterpriseDtoList = konexDetailRepository.getAllEnterprise(LocalDate.now().minusDays(1).toString())
                     .orElseThrow(() -> new NullPointerException("기업 정보를 불러오는 것을 실패했습니다."));
             return ResponseEntity.ok().body(enterpriseDtoList);
         } catch (Exception e){
@@ -51,11 +52,11 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
             List<TopResponseDTO> enterpriseTopDtoList; //받아온 결과를 담을 리스트
             switch (rankType) {
-                case "amount" -> enterpriseTopDtoList = enterpriseRepository.getTop11ByTransactionAmount()
+                case "amount" -> enterpriseTopDtoList = konexDetailRepository.getTop11ByTransactionAmount()
                         .orElseThrow(() -> new NullPointerException("거래대금 top 11 조회에 실패했습니다."));
-                case "like" -> enterpriseTopDtoList = enterpriseRepository.getTop11ByLike()
+                case "like" -> enterpriseTopDtoList = konexDetailRepository.getTop11ByLike()
                         .orElseThrow(() -> new NullPointerException("좋아요수 top 11 조회에 실패했습니다."));
-                case "views" -> enterpriseTopDtoList = enterpriseRepository.getTop11ByViews()
+                case "views" -> enterpriseTopDtoList = konexDetailRepository.getTop11ByViews()
                         .orElseThrow(() -> new NullPointerException("조회수 top 11 조회에 실패했습니다."));
                 default -> { //일치하지 않을 때
                     return ResponseEntity.notFound().build(); //404 리턴

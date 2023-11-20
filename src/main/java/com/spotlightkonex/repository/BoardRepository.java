@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
-//    List<Board> findAllByKonexCorpCodeOrderByModifiedAtDesc(String corpCode);
+    //    List<Board> findAllByKonexCorpCodeOrderByModifiedAtDesc(String corpCode);
     List<Board> findByKonexStockCorpCodeOrderByModifiedAtDesc(String corpCode);
 
     Board findByNoticeSeq(Long noticeSeq);

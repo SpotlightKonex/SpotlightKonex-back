@@ -1,13 +1,10 @@
 package com.spotlightkonex.controller;
 
-import com.spotlightkonex.domain.dto.BoardDeleteRequestDto;
 import com.spotlightkonex.domain.dto.BoardPutRequestDto;
 import com.spotlightkonex.domain.dto.BoardRequestDto;
-import com.spotlightkonex.security.CompanyMemberDetails;
 import com.spotlightkonex.service.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController // JSON으로 데이터 주고 받음
@@ -24,8 +21,8 @@ public class BoardController {
      * @return ResponseEntity
      */
     @PostMapping("/boards")
-    public ResponseEntity<?> createBoard(@AuthenticationPrincipal CompanyMemberDetails companyMemberDetails, @RequestBody BoardRequestDto requestDto) {
-        return boardService.createBoard(companyMemberDetails, requestDto);
+    public ResponseEntity<?> createBoard(@RequestBody BoardRequestDto requestDto) {
+        return boardService.createBoard(requestDto);
     }
 
     /**
@@ -45,8 +42,8 @@ public class BoardController {
      * @return ResponseEntity
      */
     @PutMapping("/boards")
-    public ResponseEntity<?> updateBoard(@AuthenticationPrincipal CompanyMemberDetails companyMemberDetails, @RequestBody BoardPutRequestDto requestDto) {
-        return boardService.updateBoard(companyMemberDetails, requestDto);
+    public ResponseEntity<?> updateBoard(@RequestBody BoardPutRequestDto requestDto) {
+        return boardService.updateBoard(requestDto);
     }
 
     /**
@@ -55,8 +52,8 @@ public class BoardController {
      * @return ResponseEntity
      */
     @DeleteMapping("/boards")
-    public ResponseEntity<?> deleteBoard(@AuthenticationPrincipal CompanyMemberDetails companyMemberDetails, @RequestBody BoardDeleteRequestDto requestDto) {
-        return boardService.deleteBoard(companyMemberDetails, requestDto);
+    public ResponseEntity<?> deleteBoard(@RequestBody Long noticeSeq) {
+        return boardService.deleteBoard(noticeSeq);
     }
 
 }
