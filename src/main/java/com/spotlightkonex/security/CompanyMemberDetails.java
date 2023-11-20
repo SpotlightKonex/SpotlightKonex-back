@@ -60,7 +60,7 @@ public class CompanyMemberDetails implements UserDetails {
                 .password(companyUser.getPassword())
                 .corpName(companyUser.getCorpName())
                 .phone(companyUser.getPhone())
-                .corpCode(companyUser.getCorpCode())
+                .corpCode(companyUser.getKonexStock().getCorpCode())
                 .build();
     }
 }
