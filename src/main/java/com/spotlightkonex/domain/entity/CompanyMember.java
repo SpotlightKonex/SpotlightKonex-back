@@ -29,7 +29,7 @@ public class CompanyMember {
 
     private String phone; //관리자 번호
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "corp_code")
     private KonexStock konexStock;
 
