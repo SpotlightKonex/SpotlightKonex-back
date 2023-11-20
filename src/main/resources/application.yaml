@@ -3,12 +3,14 @@ spring:
     url: jdbc:mysql://8387448b-ff4e-41ea-874f-130b33bfd64d.external.kr1.mysql.rds.nhncloudservice.com:13306/spotlight_konex
     username: team2
     password: team2
-
+  redis:
+    host: localhost
+    port: 6379
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false #osiv
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         show-sql: true
@@ -17,3 +19,7 @@ spring:
     pathmatch:
       matching-strategy:
         ant_path_matcher
+
+naver:
+  clientId: ${NAVER_CLIENT_ID}
+  clientSecret: ${NAVER_CLIENT_SECRET}
