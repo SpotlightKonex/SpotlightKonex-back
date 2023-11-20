@@ -2,7 +2,9 @@ package com.spotlightkonex.service;
 
 import com.spotlightkonex.domain.dto.*;
 import com.spotlightkonex.domain.entity.CompanyMember;
+import com.spotlightkonex.domain.entity.KonexStock;
 import com.spotlightkonex.repository.CompanyMemberRepository;
+import com.spotlightkonex.repository.KonexStockRepository;
 import com.spotlightkonex.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,15 +22,18 @@ public class AuthService {
     private final TokenProvider tokenProvider;
     private final CompanyMemberRepository companyMemberRepository;
     private final RedisTemplate<String, String> redisTemplate;
+    private final KonexStockRepository konexStockRepository;
 
     public Long signUp(final CompanyMemberDto companyMemberDto) {
+        KonexStock konexStock = konexStockRepository.findByCorpCode(companyMemberDto.getCorpCode())
+                .orElseThrow(() -> new NullPointerException("해당하는 기업 코드가 존재하지 않습니다."));
+
         CompanyMember companyMember = CompanyMember.builder()
-                .corpCode(companyMemberDto.getCorpCode())
                 .email(companyMemberDto.getEmail())
                 .password(passwordEncoder.encode(companyMemberDto.getPassword()))
                 .corpName(companyMemberDto.getCorpName())
                 .phone(companyMemberDto.getPhone())
-                .corpCode(companyMemberDto.getCorpCode())
+                .konexStock(konexStock)
                 .corpAuth(false)
                 .createdAt(LocalDateTime.now())
                 .build();
@@ -66,5 +71,9 @@ public class AuthService {
         return SignOutResponseDto.builder()
                 .email(signOutRequestDto.getEmail())
                 .build();
+    }
+
+    public boolean isDuplicatedEmail(String email) {
+        return companyMemberRepository.findByEmail(email).isPresent();
     }
 }
