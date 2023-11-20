@@ -24,14 +24,14 @@ public class AuthService {
     private final RedisTemplate<String, String> redisTemplate;
     private final KonexStockRepository konexStockRepository;
 
-    public Long signUp(final CompanyMemberDto companyMemberDto) {
-        KonexStock konexStock = konexStockRepository.findByCorpCode(companyMemberDto.getCorpCode())
+    public Long signUp(final CompanyMemberRequestDto companyMemberRequestDto) {
+        KonexStock konexStock = konexStockRepository.findByCorpCode(companyMemberRequestDto.getCorpCode())
                 .orElseThrow(() -> new NullPointerException("해당하는 기업 코드가 존재하지 않습니다."));
 
         CompanyMember companyMember = CompanyMember.builder()
-                .email(companyMemberDto.getEmail())
-                .password(passwordEncoder.encode(companyMemberDto.getPassword()))
-                .phone(companyMemberDto.getPhone())
+                .email(companyMemberRequestDto.getEmail())
+                .password(passwordEncoder.encode(companyMemberRequestDto.getPassword()))
+                .phone(companyMemberRequestDto.getPhone())
                 .konexStock(konexStock)
                 .corpAuth(false)
                 .createdAt(LocalDateTime.now())

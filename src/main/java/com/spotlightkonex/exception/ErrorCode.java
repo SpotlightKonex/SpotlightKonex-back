@@ -13,6 +13,12 @@ public enum ErrorCode {
      */
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
 
+    INVALID_INPUT(HttpStatus.BAD_REQUEST, "잘못된 입력값 입니다."),
+
+    WRONG_EMAIL_FORMAT(HttpStatus.BAD_REQUEST, "잘못된 이메일 형식 입니다."),
+
+    DUPLICATED_EMAIL(HttpStatus.BAD_REQUEST, "중복된 이메일 입니다."),
+
     /*
      * 403 Forbidden: 승인을 거부함
      */
@@ -25,7 +31,7 @@ public enum ErrorCode {
 
     NEWS_NOT_FOUND(HttpStatus.NOT_FOUND, "뉴스를 찾을 수 없습니다."),
 
-    DICTIONARY_NOT_FOUND(HttpStatus.NOT_FOUND, "사전을 찾을 수 없습니다."),
+    EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "이메일을 찾을 수 없습니다."),
 
 
     /*
@@ -38,6 +44,10 @@ public enum ErrorCode {
      */
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."),
 
+    /*
+     * 200 OK
+     */
+    SIGNUP_SUCCESS(HttpStatus.OK, "회원가입 성공."),
     ;
 
     private final HttpStatus status;

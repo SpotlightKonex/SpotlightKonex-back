@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Getter
-public class SignOutResponseDto {
-    private String email; // 관리자 이메일
+public class CompanyMemberResponseDto {
     private String message;
+    private Long memberSeq;
 }
