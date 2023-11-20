@@ -85,4 +85,8 @@ public class AuthController {
         return ResponseEntity.ok().body(authService.signOut(signOutRequestDto));
     }
 
+    @PostMapping("/corp-auth")
+    public ResponseEntity<?> approveCompanyMember(@RequestBody CompanyMemberRequestDto companyMemberRequestDto) {
+        return ResponseEntity.ok().body(authService.approveCompanyMember(companyMemberRequestDto));
+    }
 }
