@@ -7,5 +7,5 @@ public interface FindService {
 
     ResponseEntity<?> getEnterpriseByIndutyName(Long induty_name);
 
-    ResponseEntity<?> getEnterpriseByNominateAdviser(String advisor);
+    ResponseEntity<?> getEnterpriseByNominateAdviser(Long advisor);
 }
