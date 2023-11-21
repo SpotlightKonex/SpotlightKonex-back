@@ -11,7 +11,7 @@ pipeline {
         stage('Build and package') {
             steps {
                 script {
-                    withGradle(gradle: 'Gradle_Installation_Name', wrapper: true) {
+                    withGradle(gradle: 'gradle', wrapper: true) {
                         sh './gradlew clean build --scan'
                     }
                 }
