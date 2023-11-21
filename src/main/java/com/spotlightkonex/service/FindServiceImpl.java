@@ -1,6 +1,6 @@
 package com.spotlightkonex.service;
 
-import com.spotlightkonex.domain.dto.KonexStockDTO;
+import com.spotlightkonex.domain.dto.EnterpriseResponseDTO;
 import com.spotlightkonex.domain.dto.ResponseDTO;
 import com.spotlightkonex.domain.entity.KonexStock;
 import com.spotlightkonex.domain.cropName;
@@ -27,19 +27,15 @@ public class FindServiceImpl implements FindService{
     @Override
     public ResponseEntity<?> getEnterpriseByKeyword(String keyword) {
         try {
-            List<KonexStockDTO> result = new ArrayList<>();
+            List<EnterpriseResponseDTO> result = new ArrayList<>();
 
             // 키워드로 종목 검색
             List<KonexStock> konexStockList = konexStockRepository.findAllByStockCodeContaining(keyword);
             if(konexStockList != null){ //조회한 데이터가 있다면
                 for(KonexStock k : konexStockList){
-                    result.add(KonexStockDTO
-                            .builder()
-                            .corpCode(k.getCorpCode())
-                            .corpName(k.getCorpName())
-                            .logo(k.getLogo())
-                            .build()
-                    );
+                    //해당 기업의 시세 및 등락률 가져오기
+                    EnterpriseResponseDTO responseDTO = konexStockRepository.findDetailByCorpCode(k.getCorpCode());
+                    result.add(responseDTO);
                 }
             }
 
@@ -47,13 +43,9 @@ public class FindServiceImpl implements FindService{
             List<KonexStock> konexStockList2 = konexStockRepository.findAllByCorpNameContaining(keyword);
             if(konexStockList2 != null){ //조회한 데이터가 있다면
                 for(KonexStock k : konexStockList2){
-                    result.add(KonexStockDTO
-                            .builder()
-                            .corpCode(k.getCorpCode())
-                            .corpName(k.getCorpName())
-                            .logo(k.getLogo())
-                            .build()
-                    );
+                    //해당 기업의 시세 및 등락률 가져오기
+                    EnterpriseResponseDTO responseDTO = konexStockRepository.findDetailByCorpCode(k.getCorpCode());
+                    result.add(responseDTO);
                 }
             }
             if(result.isEmpty())
@@ -102,18 +94,14 @@ public class FindServiceImpl implements FindService{
             if(enterprises == null)
                 return ResponseEntity.notFound().build();
 
-            List<KonexStockDTO> result = new ArrayList<>(); //결과로 전달할 리스트
+            List<EnterpriseResponseDTO> result = new ArrayList<>(); //결과로 전달할 리스트
             for(String indutyName : enterprises){
                 List<KonexStock> konexStockList = konexStockRepository.findAllByIndutyNameContaining(indutyName);
                 if(konexStockList != null){ //조회한 데이터가 있다면
                     for(KonexStock k : konexStockList){
-                        result.add(KonexStockDTO
-                                .builder()
-                                .corpCode(k.getCorpCode())
-                                .corpName(k.getCorpName())
-                                .logo(k.getLogo())
-                                .build()
-                        );
+                        //해당 기업의 시세 및 등락률 가져오기
+                        EnterpriseResponseDTO responseDTO = konexStockRepository.findDetailByCorpCode(k.getCorpCode());
+                        result.add(responseDTO);
                     }
                 }
             }
@@ -141,7 +129,7 @@ public class FindServiceImpl implements FindService{
                 throw new RuntimeException("요청한 지정자문인이 없습니다.");
             }
 
-            List<KonexStockDTO> result = new ArrayList<>(); //결과로 전달할 리스트
+            List<EnterpriseResponseDTO> result = new ArrayList<>(); //결과로 전달할 리스트
             List<KonexStock> konexList = new ArrayList<>();
 
             if(advisor.equals("기타")){
@@ -159,13 +147,9 @@ public class FindServiceImpl implements FindService{
                 throw new NullPointerException("지정자문인별 조회 결과가 없습니다.");
 
             for(KonexStock k : konexList){
-                result.add(KonexStockDTO
-                        .builder()
-                        .corpCode(k.getCorpCode())
-                        .corpName(k.getCorpName())
-                        .logo(k.getLogo())
-                        .build()
-                );
+                //해당 기업의 시세 및 등락률 가져오기
+                EnterpriseResponseDTO responseDTO = konexStockRepository.findDetailByCorpCode(k.getCorpCode());
+                result.add(responseDTO);
             }
 
             return ResponseEntity.ok().body(result);
