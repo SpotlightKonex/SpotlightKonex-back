@@ -32,19 +32,23 @@ public interface KonexDetailRepository extends JpaRepository<KonexDetail, Long> 
     /**
      * 좋아요수 top 11 조회
      * */
-    @Query(value = "SELECT corpCode, corpName, logo, price, cmpprevddPrc " +
-            "FROM (SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo, d.price, d.cmpprevdd_prc as cmpprevddPrc FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.modified_at DESC LIMIT 129) s " +
-            "WHERE corpCode IN (SELECT sub.corpCode FROM (SELECT l.corp_code as corpCode, SUM(l.count) as likeCount " +
-            "FROM company_like l GROUP BY l.corp_code ORDER BY likeCount DESC LIMIT 11) sub)", nativeQuery = true)
+    @Query(value = "SELECT s.corpCode, s.corpName, s.logo, d.price, d.cmpprevdd_prc as cmpprevddPrc " +
+            "FROM (SELECT s.corp_code AS corpCode, s.corp_name AS corpName, s.logo,SUM(l.count) AS likeCount, MAX(d.created_at) AS maxCreateAt FROM konex_stock s " +
+            "LEFT JOIN company_like l ON s.corp_code = l.corp_code LEFT JOIN konex_detail d ON s.corp_code = d.corp_code " +
+            "GROUP BY s.corp_code ORDER BY likeCount DESC, maxCreateAt DESC LIMIT 11) s " +
+            "LEFT JOIN konex_detail d ON d.corp_code = s.corpCode AND d.created_at = s.maxCreateAt " +
+            "ORDER BY s.likeCount DESC, s.maxCreateAt DESC", nativeQuery = true)
     Optional<List<EnterpriseResponseDTO>> getTop11ByLike();
 
     /**
      * 조회수 top 11 조회
      * */
-    @Query(value = "SELECT corpCode, corpName, logo, price, cmpprevddPrc " +
-            "FROM (SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo, d.price, d.cmpprevdd_prc as cmpprevddPrc FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.modified_at DESC LIMIT 129) s " +
-            "WHERE corpCode IN (SELECT sub.corpCode FROM (SELECT v.corp_code as corpCode, SUM(v.count) as viewsCount " +
-            "FROM company_views v GROUP BY v.corp_code ORDER BY viewsCount DESC LIMIT 11) sub)", nativeQuery = true)
+    @Query(value = "SELECT s.corpCode, s.corpName, s.logo, d.price, d.cmpprevdd_prc as cmpprevddPrc " +
+            "FROM (SELECT s.corp_code AS corpCode, s.corp_name AS corpName, s.logo, SUM(v.count) AS viewsCount, MAX(d.created_at) AS maxCreateAt FROM konex_stock s " +
+            "LEFT JOIN company_views v ON s.corp_code = v.corp_code LEFT JOIN konex_detail d ON s.corp_code = d.corp_code " +
+            "GROUP BY s.corp_code ORDER BY viewsCount DESC, maxCreateAt DESC LIMIT 11) s " +
+            "LEFT JOIN konex_detail d ON d.corp_code = s.corpCode AND d.created_at = s.maxCreateAt " +
+            "ORDER BY s.viewsCount DESC, s.maxCreateAt DESC", nativeQuery = true)
     Optional<List<EnterpriseResponseDTO>> getTop11ByViews();
 
     /**
