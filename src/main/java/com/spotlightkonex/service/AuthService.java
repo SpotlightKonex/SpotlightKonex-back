@@ -9,6 +9,7 @@ import com.spotlightkonex.repository.CompanyMemberRepository;
 import com.spotlightkonex.repository.KonexStockRepository;
 import com.spotlightkonex.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -32,7 +34,7 @@ public class AuthService {
     @Transactional
     public Long signUp(final CompanyMemberRequestDto companyMemberRequestDto) {
         KonexStock konexStock = konexStockRepository.findByCorpCode(companyMemberRequestDto.getCorpCode())
-                .orElseThrow(() -> new NullPointerException("해당하는 기업 코드가 존재하지 않습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.COMPANY_NOT_FOUND));
 
         CompanyMember companyMember = CompanyMember.builder()
                 .email(companyMemberRequestDto.getEmail())
@@ -44,7 +46,7 @@ public class AuthService {
                 .build();
 
         CompanyMember save = companyMemberRepository.save(companyMember);
-
+        log.info("companyMember signup: " + save.getEmail());
         return save.getMemberSeq();
     }
 
@@ -52,12 +54,14 @@ public class AuthService {
     public SignInResponseDto signIn(final SignInRequestDto signInRequestDto) {
         CompanyMember companyUser = companyMemberRepository
                 .findByEmail(signInRequestDto.getEmail())
-                .orElseThrow();
+                .orElseThrow(() -> new CustomException(ErrorCode.MEMBER_NOT_FOUND));
 
         if (!passwordEncoder.matches(signInRequestDto.getPassword(), companyUser.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+            log.debug("wrong password: " + signInRequestDto.getEmail());
+            throw new CustomException(ErrorCode.WRONG_PASSWORD);
         }
 
+        log.info("signin success: " + signInRequestDto.getEmail());
         return SignInResponseDto.builder()
                 .email(signInRequestDto.getEmail())
                 .accessToken(tokenProvider.createToken(signInRequestDto.getEmail()))
@@ -67,7 +71,7 @@ public class AuthService {
     @Transactional
     public SignOutResponseDto signOut(final SignOutRequestDto signOutRequestDto) {
         if (!tokenProvider.validateToken(signOutRequestDto.getAccessToken())) {
-            System.out.println("잘못된 요쳥");
+            log.debug("invalid token" + signOutRequestDto.getEmail());
         }
 
         // 해당 Access Token 유효 시간을 가지고 와서 BlackList 로 저장하기
@@ -75,8 +79,10 @@ public class AuthService {
         redisTemplate.opsForValue()
                 .set(signOutRequestDto.getAccessToken(), "logout", expiration, TimeUnit.MILLISECONDS);
 
+        log.info("signout success: " + signOutRequestDto.getEmail());
         return SignOutResponseDto.builder()
                 .email(signOutRequestDto.getEmail())
+                .message(ErrorCode.SIGN_OUT_SUCCESS.getMessage())
                 .build();
     }
 
