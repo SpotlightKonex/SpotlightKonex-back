@@ -1,6 +1,6 @@
 package com.spotlightkonex.domain;
 
-public enum cropName {
+public enum CorpNameEnum {
     NUM1 { //금속 및 화학 제조업
         public String [] getEnterprise(){
             return new String[]{"1차 철강 제조업", "기초 화학물질 제조업", "기타 금속 가공제품 제조업"};

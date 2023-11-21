@@ -2,7 +2,9 @@ package com.spotlightkonex.service;
 
 import com.spotlightkonex.domain.dto.BoardListResponseDto;
 import com.spotlightkonex.domain.dto.BoardPutRequestDto;
+import com.spotlightkonex.domain.entity.CompanyMember;
 import com.spotlightkonex.domain.entity.KonexStock;
+import com.spotlightkonex.repository.CompanyMemberRepository;
 import com.spotlightkonex.repository.KonexStockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,17 +24,26 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final KonexStockRepository konexStockRepository;
+    private final CompanyMemberRepository companyMemberRepository;
 
     @Override
     public ResponseEntity<?> createBoard(BoardRequestDto requestDto) {
         try {
+            String requestEmail = requestDto.getEmail();
             String corpCode = requestDto.getCorpCode(); //requestDto에 있는 corp_code의 값을 cropCode에 담기
             KonexStock konexStock = konexStockRepository.findByCorpCode(corpCode)
                     .orElseThrow(() -> new NullPointerException("잘못된 기업 코드입니다.")); //KonexStock 표 전체 내용(해당기업)
+
+            CompanyMember companyMember = companyMemberRepository.findByEmail(requestEmail)
+                    .orElseThrow(() -> new NullPointerException("해당 이메일을 가진 멤버가 존재하지 않습니다."));
+
+            if (!companyMember.getKonexStock().equals(konexStock)) {
+                throw new NullPointerException("허용되지 않는 사용자 입니다");
+            }
             Board board = Board.builder()
                     .title(requestDto.getTitle())
                     .context(requestDto.getContext())
-                    .konexStock(konexStock)
+                    .konexStock(companyMember.getKonexStock())
                     .build();
             boardRepository.save(board);
             return new ResponseEntity<>("게시물 등록 성공", HttpStatus.OK);
