@@ -18,7 +18,7 @@ public class TokenProvider {
     public String createToken(String email) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + ACCESS_TOKEN_VALIDITY_SECONDS * 1000); // 기한은 지금부터 토큰 유효 시간만큼 설정
-
+        log.info("token created: " + now);
         return Jwts.builder()
                 .setSubject(email)
                 // header에 들어갈 내용 및 서명을 하기 위한 SECRET_KEY
@@ -33,7 +33,6 @@ public class TokenProvider {
     public boolean validateToken(String accessToken) { // 토큰을 받아 유효성 검사를 실행
         try {
             Jwts.parser().setSigningKey(ACCESS_SECRET_KEY).parseClaimsJws(accessToken);
-
             return true;
         }
         catch (SecurityException | MalformedJwtException e) {
