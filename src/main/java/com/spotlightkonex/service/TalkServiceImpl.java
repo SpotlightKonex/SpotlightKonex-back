@@ -41,10 +41,10 @@ public class TalkServiceImpl implements TalkService{
 
             List<CompanyTalk> companyTalkList;
             if(status){ //모아보기일 때
-                companyTalkList = companyTalkRepository.findAllByKonexStockCorpCodeAndWriterTypeOrderByCreatedAtDesc(konexStock.getCorpCode(), 1)
+                companyTalkList = companyTalkRepository.findAllByKonexStockCorpCodeAndWriterTypeOrderByCreatedAtAsc(konexStock.getCorpCode(), 1)
                         .orElseThrow(() -> new NullPointerException("기업 채팅 내역이 없습니다."));
             } else{ //섞어보기
-                companyTalkList = companyTalkRepository.findAllByKonexStockCorpCodeOrderByCreatedAtDesc(konexStock.getCorpCode())
+                companyTalkList = companyTalkRepository.findAllByKonexStockCorpCodeOrderByCreatedAtAsc(konexStock.getCorpCode())
                         .orElseThrow(() -> new NullPointerException("기업 채팅 내역이 없습니다."));
             }
 
