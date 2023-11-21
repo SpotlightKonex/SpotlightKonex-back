@@ -30,7 +30,7 @@ public class WebSecurityConfig {
                 // / 경로는 인증 안 해도 된다.
                 .authorizeRequests().antMatchers("/", "/auth/**",
                         "/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**",
-                        "/api/v3/**", "/swagger-resources/**", "/webjars/**", "/main/**", "/main/top/**","/find/**", "/analysis/**", "/boards/**", "/enterprise/**", "/news/**").permitAll()
+                        "/api/v3/**", "/swagger-resources/**", "/webjars/**", "/main/**", "/main/top/**","/find/**", "/analysis/**", "/boards/**", "/enterprise/**", "/news/**", "/calculator/**").permitAll()
                 // /  이외의 모든 경로는 인증해야 된다.
                 .anyRequest().authenticated()
                 .and()
