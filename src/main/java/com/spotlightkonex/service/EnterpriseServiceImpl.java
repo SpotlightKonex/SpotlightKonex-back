@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -24,7 +23,7 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     @Override
     public ResponseEntity<?> getEnterprise() {
         try {
-            List<EnterpriseResponseDTO> enterpriseDtoList = konexDetailRepository.getAllEnterprise(LocalDate.now().toString())
+            List<EnterpriseResponseDTO> enterpriseDtoList = konexDetailRepository.getAllEnterprise()
                     .orElseThrow(() -> new NullPointerException("기업 정보를 불러오는 것을 실패했습니다."));
             return ResponseEntity.ok().body(enterpriseDtoList);
         } catch (Exception e){
