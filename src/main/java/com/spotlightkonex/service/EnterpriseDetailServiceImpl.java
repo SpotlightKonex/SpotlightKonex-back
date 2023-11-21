@@ -1,6 +1,7 @@
 package com.spotlightkonex.service;
 
 import com.spotlightkonex.domain.dto.EnterpriseDetailDTO;
+import com.spotlightkonex.domain.dto.EnterpriseDetailRequestDto;
 import com.spotlightkonex.domain.dto.ResponseDTO;
 import com.spotlightkonex.domain.entity.KonexStock;
 import com.spotlightkonex.repository.KonexStockRepository;
@@ -43,5 +44,36 @@ public class EnterpriseDetailServiceImpl implements EnterpriseDetailService{
                     .internalServerError() //500
                     .body(responseDTO);
         }
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<?> modifyCompanyDescription(EnterpriseDetailRequestDto enterpriseDetailRequestDto) {
+        try {
+            KonexStock konexStock = konexStockRepository.findByCorpCode(enterpriseDetailRequestDto.getCorpCode())
+                    .orElseThrow(() -> new NullPointerException("해당하는 기업을 찾을 수 없습니다."));
+
+            konexStock.setDescription(enterpriseDetailRequestDto.getDescription());
+
+            EnterpriseDetailDTO detailDTO = EnterpriseDetailDTO.builder()
+                    .corpName(konexStock.getCorpName())
+                    .indutyName(konexStock.getIndutyName())
+                    .establish_date(konexStock.getEstablishDate())
+                    .public_date(konexStock.getPublicDate())
+                    .capital(konexStock.getCapital())
+                    .address(konexStock.getAddress())
+                    .url(konexStock.getUrl())
+                    .description(konexStock.getDescription())
+                    .build();
+
+            return ResponseEntity.ok().body(detailDTO);
+
+        } catch (Exception e) {
+            ResponseDTO<Object> responseDTO = ResponseDTO.builder().message(e.getMessage()).build();
+            return ResponseEntity
+                    .internalServerError() //500
+                    .body(responseDTO);
+        }
+
     }
 }
