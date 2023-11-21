@@ -65,6 +65,7 @@ public class AuthService {
         return SignInResponseDto.builder()
                 .email(signInRequestDto.getEmail())
                 .accessToken(tokenProvider.createToken(signInRequestDto.getEmail()))
+                .corpCode(companyUser.getKonexStock().getCorpCode())
                 .build();
     }
 

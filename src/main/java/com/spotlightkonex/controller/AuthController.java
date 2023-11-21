@@ -54,6 +54,7 @@ public class AuthController {
                     .email(signInRequestDto.getEmail())
                     .accessToken("")
                     .message(errorCode.getMessage())
+                    .corpCode("")
                     .build();
             return ResponseEntity.status(errorCode.getStatus()).body(responseDto);
         }

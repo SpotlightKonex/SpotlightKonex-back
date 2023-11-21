@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class SignInResponseDto {
     private String email; // 관리자 이메일
     private String accessToken; // access token
+    private String corpCode; // 기업 고유번호
     private String message;
 }
