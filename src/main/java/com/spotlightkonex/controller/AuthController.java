@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/auth")
 public class AuthController {
     private String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-    private String phoneRegex = "\\b\\d{2,3}-\\d{3,4}-\\d{4}\\b\n";
+    private String phoneRegex = "^\\d{2,3}-\\d{3,4}-\\d{4}$";
 
     private final AuthService authService;
 
@@ -32,10 +32,10 @@ public class AuthController {
             ErrorCode errorCode = ErrorCode.DUPLICATED_EMAIL;
             return makeStatusResponse(errorCode);
         }
-        //if (!companyMemberRequestDto.getPhone().matches(phoneRegex)) {
-            //ErrorCode errorCode = ErrorCode.WRONG_PHONE_FORMAT;
-            //return makeStatusResponse(errorCode);
-       // }
+        if (!companyMemberRequestDto.getPhone().matches(phoneRegex)) {
+            ErrorCode errorCode = ErrorCode.WRONG_PHONE_FORMAT;
+            return makeStatusResponse(errorCode);
+        }
         Long corp_seq = authService.signUp(companyMemberRequestDto);
         ErrorCode code = ErrorCode.SIGNUP_SUCCESS;
         CompanyMemberResponseDto responseDto = CompanyMemberResponseDto
