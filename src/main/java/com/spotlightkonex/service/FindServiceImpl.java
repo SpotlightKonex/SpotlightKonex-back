@@ -1,9 +1,9 @@
 package com.spotlightkonex.service;
 
+import com.spotlightkonex.domain.CorpNameEnum;
 import com.spotlightkonex.domain.dto.EnterpriseResponseDTO;
 import com.spotlightkonex.domain.dto.ResponseDTO;
 import com.spotlightkonex.domain.entity.KonexStock;
-import com.spotlightkonex.domain.cropName;
 import com.spotlightkonex.repository.KonexStockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -74,21 +74,21 @@ public class FindServiceImpl implements FindService{
 
             String [] enterprises = null;
             if (theme == 1) {
-                enterprises = cropName.NUM1.getEnterprise();
+                enterprises = CorpNameEnum.NUM1.getEnterprise();
             } else if (theme == 2) {
-                enterprises = cropName.NUM2.getEnterprise();
+                enterprises = CorpNameEnum.NUM2.getEnterprise();
             } else if (theme == 3) {
-                enterprises = cropName.NUM3.getEnterprise();
+                enterprises = CorpNameEnum.NUM3.getEnterprise();
             } else if (theme == 4) {
-                enterprises = cropName.NUM4.getEnterprise();
+                enterprises = CorpNameEnum.NUM4.getEnterprise();
             } else if (theme == 5) {
-                enterprises = cropName.NUM5.getEnterprise();
+                enterprises = CorpNameEnum.NUM5.getEnterprise();
             } else if (theme == 6) {
-                enterprises = cropName.NUM6.getEnterprise();
+                enterprises = CorpNameEnum.NUM6.getEnterprise();
             } else if (theme == 7) {
-                enterprises = cropName.NUM7.getEnterprise();
+                enterprises = CorpNameEnum.NUM7.getEnterprise();
             } else if (theme == 8) {
-                enterprises = cropName.NUM8.getEnterprise();
+                enterprises = CorpNameEnum.NUM8.getEnterprise();
             }
 
             if(enterprises == null)
@@ -123,24 +123,44 @@ public class FindServiceImpl implements FindService{
      * @param advisor 지정자문인 명
      * */
     @Override
-    public ResponseEntity<?> getEnterpriseByNominateAdviser(String advisor) throws RuntimeException {
+    public ResponseEntity<?> getEnterpriseByNominateAdviser(Long advisor) throws RuntimeException {
         try {
-            if(advisor == null){
-                throw new RuntimeException("요청한 지정자문인이 없습니다.");
-            }
+            //지정자문인 매칭
+            String advisorName;
+            if (advisor == 1) advisorName = "유진투자증권";
+            else if (advisor == 2) advisorName = "신한투자증권 주식회사";
+            else if (advisor == 3) advisorName = "하이투자증권";
+            else if (advisor == 4) advisorName = "IBK투자증권";
+            else if (advisor == 5) advisorName = "미래에셋증권 주식회사";
+            else if (advisor == 6) advisorName = "SK증권";
+            else if (advisor == 7) advisorName = "상상인증권";
+            else if (advisor == 8) advisorName = "한화투자증권";
+            else if (advisor == 9) advisorName = "대신증권";
+            else if (advisor == 10) advisorName = "키움증권";
+            else if (advisor == 11) advisorName = "하나증권주식회사";
+            else if (advisor == 12) advisorName = "엔에이치투자증권주식회사";
+            else if (advisor == 13) advisorName = "현대자동차증권주식회사";
+            else if (advisor == 14) advisorName = "교보증권";
+            else if (advisor == 15) advisorName = "비엔케이투자증권";
+            else if (advisor == 16) advisorName = "신영증권";
+            else if (advisor == 17) advisorName = "DB금융투자주식회사";
+            else if (advisor == 18) advisorName = "한국투자증권";
+            else if (advisor == 19) advisorName = "KB증권";
+            else if (advisor == 20) advisorName = "기타";
+            else throw new RuntimeException("요청한 지정자문인이 없습니다.");
 
             List<EnterpriseResponseDTO> result = new ArrayList<>(); //결과로 전달할 리스트
             List<KonexStock> konexList = new ArrayList<>();
 
-            if(advisor.equals("기타")){
-                List<KonexStock> konexStockList1 = konexStockRepository.findByNominateAdviserContaining("한양증권(주)");
-                List<KonexStock> konexStockList2 = konexStockRepository.findByNominateAdviserContaining("유안타증권(주)");
+            if(advisorName.equals("기타")){
+                List<KonexStock> konexStockList1 = konexStockRepository.findByNominateAdviserContaining("한양증권");
+                List<KonexStock> konexStockList2 = konexStockRepository.findByNominateAdviserContaining("유안타증권");
 
                 //조회한 두 리스트 합치기
                 if(konexStockList1 != null) konexList.addAll(konexStockList1);
                 if(konexStockList2 != null) konexList.addAll(konexStockList2);
             } else{
-                konexList = konexStockRepository.findByNominateAdviserContaining(advisor);
+                konexList = konexStockRepository.findByNominateAdviserContaining(advisorName);
             }
 
             if(konexList.isEmpty())
