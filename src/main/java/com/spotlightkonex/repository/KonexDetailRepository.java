@@ -17,7 +17,7 @@ public interface KonexDetailRepository extends JpaRepository<KonexDetail, Long> 
      * */
     @Query(value = "SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo as logo, d.price as price, d.cmpprevdd_prc as cmpprevddPrc " +
             "FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code " +
-            "ORDER BY d.modified_at DESC LIMIT 129 ", nativeQuery = true)
+            "ORDER BY d.modified_at DESC, s.corp_name LIMIT 129 ", nativeQuery = true)
     Optional<List<EnterpriseResponseDTO>> getAllEnterprise();
 
     /**
