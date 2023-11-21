@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     withGradle(gradle: 'Gradle_Installation_Name', wrapper: true) {
-                        sh './gradlew clean build'
+                        sh './gradlew clean build --scan'
                     }
                 }
             }
