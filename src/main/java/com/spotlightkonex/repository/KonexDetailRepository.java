@@ -24,14 +24,14 @@ public interface KonexDetailRepository extends JpaRepository<KonexDetail, Long> 
      * 거래대금 top 11 조회
      * */
     @Query(value = "SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo as logo, d.price as price, d.cmpprevdd_prc as cmpprevddPrc " +
-            "FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.trading_amount, d.modified_at DESC LIMIT 11", nativeQuery = true)
+            "FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.trading_amount DESC, d.modified_at DESC LIMIT 11", nativeQuery = true)
     Optional<List<EnterpriseResponseDTO>> getTop11ByTransactionAmount();
 
     /**
      * 좋아요수 top 11 조회
      * */
     @Query(value = "SELECT corpCode, corpName, logo, price, cmpprevddPrc " +
-            "FROM (SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo, d.price, d.cmpprevdd_prc as cmpprevddPrc FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.trading_amount, d.modified_at DESC LIMIT 129) s " +
+            "FROM (SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo, d.price, d.cmpprevdd_prc as cmpprevddPrc FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.modified_at DESC LIMIT 129) s " +
             "WHERE corpCode IN (SELECT sub.corpCode FROM (SELECT l.corp_code as corpCode, SUM(l.count) as likeCount " +
             "FROM company_like l GROUP BY l.corp_code ORDER BY likeCount DESC LIMIT 11) sub)", nativeQuery = true)
     Optional<List<EnterpriseResponseDTO>> getTop11ByLike();
@@ -40,7 +40,7 @@ public interface KonexDetailRepository extends JpaRepository<KonexDetail, Long> 
      * 조회수 top 11 조회
      * */
     @Query(value = "SELECT corpCode, corpName, logo, price, cmpprevddPrc " +
-            "FROM (SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo, d.price, d.cmpprevdd_prc as cmpprevddPrc FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.trading_amount, d.modified_at DESC LIMIT 129) s " +
+            "FROM (SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo, d.price, d.cmpprevdd_prc as cmpprevddPrc FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.modified_at DESC LIMIT 129) s " +
             "WHERE corpCode IN (SELECT sub.corpCode FROM (SELECT v.corp_code as corpCode, SUM(v.count) as viewsCount " +
             "FROM company_views v GROUP BY v.corp_code ORDER BY viewsCount DESC LIMIT 11) sub)", nativeQuery = true)
     Optional<List<EnterpriseResponseDTO>> getTop11ByViews();
