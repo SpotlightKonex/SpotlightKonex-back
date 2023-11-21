@@ -32,10 +32,10 @@ public class AuthController {
             ErrorCode errorCode = ErrorCode.DUPLICATED_EMAIL;
             return makeStatusResponse(errorCode);
         }
-        if (!companyMemberRequestDto.getPhone().matches(phoneRegex)) {
-            ErrorCode errorCode = ErrorCode.WRONG_PHONE_FORMAT;
-            return makeStatusResponse(errorCode);
-        }
+        //if (!companyMemberRequestDto.getPhone().matches(phoneRegex)) {
+            //ErrorCode errorCode = ErrorCode.WRONG_PHONE_FORMAT;
+            //return makeStatusResponse(errorCode);
+       // }
         Long corp_seq = authService.signUp(companyMemberRequestDto);
         ErrorCode code = ErrorCode.SIGNUP_SUCCESS;
         CompanyMemberResponseDto responseDto = CompanyMemberResponseDto
