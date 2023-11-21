@@ -36,5 +36,17 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy') {
+        	steps {
+            	sshagent(credentials: ['nhn-key']) {
+        			sh '''
+        				ssh -o StrictHostKeyChecking=no ubuntu@10.2.1.58
+                        scp /var/jenkins_home/workspace/spotlight-konex-pipeline/backend/build/libs/spotlight-konex-pipeline-0.0.1-SNAPSHOT.jar ubuntu@10.2.1.58:/home/ubuntu
+                        ssh -tt ubuntu@{Private IP} sh ./deploy.sh
+                    '''
+        		}
+        	}
+        }
     }
 }
