@@ -51,6 +51,8 @@ public class KonexStock {
     @Column(name="created_at", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt; //생성일
 
+    private String description;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
