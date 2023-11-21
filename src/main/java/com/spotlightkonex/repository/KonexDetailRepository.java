@@ -23,8 +23,10 @@ public interface KonexDetailRepository extends JpaRepository<KonexDetail, Long> 
     /**
      * 거래대금 top 11 조회
      * */
-    @Query(value = "SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo as logo, d.price as price, d.cmpprevdd_prc as cmpprevddPrc " +
-            "FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.trading_amount DESC, d.modified_at DESC LIMIT 11", nativeQuery = true)
+    @Query(value = "SELECT corpCode, corpName, logo, price, cmpprevddPrc " +
+            "FROM (SELECT s.corp_code as corpCode, s.corp_name as corpName, s.logo as logo, d.price as price, d.cmpprevdd_prc as cmpprevddPrc, d.trading_amount as trdingAmount " +
+            "FROM konex_stock s LEFT JOIN konex_detail d ON d.corp_code = s.corp_code ORDER BY d.modified_at DESC LIMIT 129) sub " +
+            "ORDER BY trdingAmount DESC LIMIT 11", nativeQuery = true)
     Optional<List<EnterpriseResponseDTO>> getTop11ByTransactionAmount();
 
     /**
