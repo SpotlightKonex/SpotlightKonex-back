@@ -40,7 +40,7 @@ public class FindController {
      * @return 지정자문인에 해당하는 종목을 가진 기업 리스트
      * */
     @GetMapping("/advisor/{advisor}")
-    public ResponseEntity<?> searchEnterpriseByAdvisor(@PathVariable String advisor){
+    public ResponseEntity<?> searchEnterpriseByAdvisor(@PathVariable Long advisor){
         return findService.getEnterpriseByNominateAdviser(advisor);
     }
 }
