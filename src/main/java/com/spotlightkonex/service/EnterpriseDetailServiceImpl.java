@@ -33,6 +33,7 @@ public class EnterpriseDetailServiceImpl implements EnterpriseDetailService{
                     .capital(konexStock.getCapital())
                     .address(konexStock.getAddress())
                     .url(konexStock.getUrl())
+                    .description(konexStock.getDescription())
                     .build();
 
             return ResponseEntity.ok().body(detailDTO);
