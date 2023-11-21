@@ -15,4 +15,5 @@ public class EnterpriseDetailDTO {
     private final Long capital; // 자본금
     private final String address; // 주소
     private final String url; // 홈페이지
+    private final String description; // 기업 소개
 }
