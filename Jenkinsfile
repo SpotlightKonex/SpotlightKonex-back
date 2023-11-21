@@ -36,5 +36,16 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy') {
+        	steps {
+            	sshagent(credentials: ['nhn-key']) {
+        			sh '''
+        				ssh -o StrictHostKeyChecking=no ubuntu@10.2.1.58
+                        ssh -tt ubuntu@10.2.1.58 sh ./deploy.sh
+                    '''
+        		}
+        	}
+        }
     }
 }
