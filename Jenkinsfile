@@ -42,7 +42,7 @@ pipeline {
             	sshagent(credentials: ['nhn-key']) {
         			sh '''
         				ssh -o StrictHostKeyChecking=no ubuntu@10.2.1.58
-                        scp /var/jenkins_home/workspace/spotlight-konex-pipeline/build/libs/spotlight-konex-pipeline-0.0.1-SNAPSHOT.jar ubuntu@10.2.1.58:/home/ubuntu
+                        scp /var/jenkins_home/workspace/spotlight-konex-pipeline/build/libs/SpotlightKonex-back-0.0.1-SNAPSHOT.jar ubuntu@10.2.1.58:/home/ubuntu
                         ssh -tt ubuntu@10.2.1.58 sh ./deploy.sh
                     '''
         		}
