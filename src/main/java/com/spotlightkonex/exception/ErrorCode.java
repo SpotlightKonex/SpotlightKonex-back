@@ -15,9 +15,13 @@ public enum ErrorCode {
 
     INVALID_INPUT(HttpStatus.BAD_REQUEST, "잘못된 입력값 입니다."),
 
+    WRONG_PHONE_FORMAT(HttpStatus.BAD_REQUEST, "잘못된 휴대폰 형식 입니다."),
+
     WRONG_EMAIL_FORMAT(HttpStatus.BAD_REQUEST, "잘못된 이메일 형식 입니다."),
 
     DUPLICATED_EMAIL(HttpStatus.BAD_REQUEST, "중복된 이메일 입니다."),
+
+    WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "잘못된 비밀번호 입니다."),
 
     /*
      * 403 Forbidden: 승인을 거부함
@@ -51,7 +55,11 @@ public enum ErrorCode {
      */
     SIGNUP_SUCCESS(HttpStatus.OK, "회원가입 성공."),
 
-    COMPANY_MEMBER_APPROVED(HttpStatus.OK, "기업 회원 승인 완료.")
+    COMPANY_MEMBER_APPROVED(HttpStatus.OK, "기업 회원 승인 완료."),
+
+    SIGN_IN_SUCCESS(HttpStatus.OK, "로그인 성공."),
+
+    SIGN_OUT_SUCCESS(HttpStatus.OK, "로그아웃 성공.")
     ;
 
     private final HttpStatus status;
