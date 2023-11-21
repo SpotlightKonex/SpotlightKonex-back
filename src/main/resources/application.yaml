@@ -4,7 +4,7 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   redis:
-    host: localhost
+    host: 10.2.1.72
     port: 6379
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
