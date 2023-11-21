@@ -12,4 +12,6 @@ public class BoardRequestDto {
 
     private String corpCode;
 
+    private String email;
+
 }
