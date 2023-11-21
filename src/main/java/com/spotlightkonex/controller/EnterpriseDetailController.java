@@ -1,5 +1,6 @@
 package com.spotlightkonex.controller;
 
+import com.spotlightkonex.domain.dto.EnterpriseDetailRequestDto;
 import com.spotlightkonex.domain.dto.TalkRequestDTO;
 import com.spotlightkonex.security.CompanyMemberDetails;
 import com.spotlightkonex.service.EnterpriseDetailService;
@@ -47,6 +48,11 @@ public class EnterpriseDetailController {
     @GetMapping("/{corpCode}")
     public ResponseEntity<?> getCompanyDetail(@PathVariable String corpCode){
         return enterpriseDetailService.getCompanyDetailByCorpCode(corpCode);
+    }
+
+    @PostMapping("/descriptions")
+    public ResponseEntity<?> modifyCompanyDescription(@RequestBody EnterpriseDetailRequestDto enterpriseDetailRequestDto) {
+        return enterpriseDetailService.modifyCompanyDescription(enterpriseDetailRequestDto);
     }
 
     /**
