@@ -33,7 +33,9 @@ public class AuthService {
 
     @Transactional
     public Long signUp(final CompanyMemberRequestDto companyMemberRequestDto) {
-        KonexStock konexStock = konexStockRepository.findByCorpCode(companyMemberRequestDto.getCorpCode())
+//        KonexStock konexStock = konexStockRepository.findByCorpCode(companyMemberRequestDto.getCorpCode())
+//                .orElseThrow(() -> new CustomException(ErrorCode.COMPANY_NOT_FOUND));
+        KonexStock konexStock = konexStockRepository.findByCorpName(companyMemberRequestDto.getCorpName())
                 .orElseThrow(() -> new CustomException(ErrorCode.COMPANY_NOT_FOUND));
 
         CompanyMember companyMember = CompanyMember.builder()

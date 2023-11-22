@@ -11,6 +11,8 @@ import java.util.Optional;
 public interface KonexStockRepository extends JpaRepository<KonexStock, Long> {
     Optional<KonexStock> findByCorpCode(String corpCode);
 
+    Optional<KonexStock> findByCorpName(String corpName);
+
     /**
      * 키워드가 들어간 종목 코드에 해당하는 기업 조회
      * */

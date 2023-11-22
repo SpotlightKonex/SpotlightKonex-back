@@ -15,5 +15,4 @@ public class CompanyMemberRequestDto {
     private String password; // 패스워드
     private String corpName; // 기업 명
     private String phone; // 관리자 연락처
-    private String corpCode; // 기업 고유번호
 }
